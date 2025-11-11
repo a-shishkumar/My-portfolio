@@ -1,23 +1,59 @@
 import Plasma from "../components/Plasma";
 import React from "react";
+import Navbar from "./Navbar";
+import Hero from "./Hero";
+import About from "./About";
+import Education from "./Education";
+import Skills from "./Skills";
+import Projects from "./Projects";
+import Experience from "./Experience";
+import Contacts from "./Contacts";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
-    <div
-      className="relative  text-white  min-h-screen bg-black w-full overflow-hidden"
-      style={{ width: "100%", height: "600px", position: "relative" }}
-    >
-      <Plasma
-        color="#1a1526"
-        speed={0.9}
-        direction="forward"
-        scale={2.6}
-        opacity={0.9}
-        mouseInteractive={true}
-      />
-      <div className="absolute text-white inset-0 p-8 text-gray-900 z-10">
-        <h1 className="text-3xl font-bold mb-4">Home</h1>
-        <p className="text-center">Welcome to my portfolio!</p>
+    <div className="relative text-white bg-black w-full min-h-screen">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <Plasma
+          color="#1a1526"
+          speed={2}
+          direction="forward"
+          scale={2.6}
+          opacity={1}
+          mouseInteractive={true}
+        />
+      </div>
+
+      {/* Foreground content */}
+      <div className="relative z-10">
+        <div className="z-30">
+          <Navbar />
+        </div>
+        <div className="pt-20 p-8">
+          <div id="hero">
+            <Hero />
+          </div>
+          <div id="about">
+            <About />
+          </div>
+          <div id="education">
+            <Education />
+          </div>
+          <div id="skills">
+            <Skills />
+          </div>
+          <div id="projects">
+            <Projects />
+          </div>
+          <div id="experience">
+            <Experience />
+          </div>
+          <div id="contact">
+            <Contacts />
+          </div>
+        </div>
+        <Footer />
       </div>
     </div>
   );

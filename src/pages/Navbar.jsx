@@ -1,81 +1,81 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <nav className="bg-gray-800 text-white p-4">
+    <nav className="bg-gray-800 text-white p-4 mx-5 mt-3 border-transparent  rounded-full fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-xl font-bold">My Portfolio</div>
         <ul className="flex space-x-4">
           <li>
-            <NavLink
+            <Link
               to="/"
-              className={({ isActive }) =>
-                isActive ? "text-blue-400" : "hover:text-gray-300"
-              }
+              className="hover:text-gray-300"
+              onClick={() => scrollToSection('hero')}
             >
               Home
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? "text-blue-400" : "hover:text-gray-300"
-              }
+            <Link
+              to="/"
+              className="hover:text-gray-300"
+              onClick={() => scrollToSection('about')}
             >
               About
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
-              to="/education"
-              className={({ isActive }) =>
-                isActive ? "text-blue-400" : "hover:text-gray-300"
-              }
+            <Link
+              to="/"
+              className="hover:text-gray-300"
+              onClick={() => scrollToSection('education')}
             >
               Education
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
-              to="/skills"
-              className={({ isActive }) =>
-                isActive ? "text-blue-400" : "hover:text-gray-300"
-              }
+            <Link
+              to="/"
+              className="hover:text-gray-300"
+              onClick={() => scrollToSection('skills')}
             >
               Skills
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
-              to="/projects"
-              className={({ isActive }) =>
-                isActive ? "text-blue-400" : "hover:text-gray-300"
-              }
+            <Link
+              to="/"
+              className="hover:text-gray-300"
+              onClick={() => scrollToSection('projects')}
             >
               Projects
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
-              to="/experience"
-              className={({ isActive }) =>
-                isActive ? "text-blue-400" : "hover:text-gray-300"
-              }
+            <Link
+              to="/"
+              className="hover:text-gray-300"
+              onClick={() => scrollToSection('experience')}
             >
               Experience
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                isActive ? "text-blue-400" : "hover:text-gray-300"
-              }
+            <Link
+              to="/"
+              className="hover:text-gray-300"
+              onClick={() => scrollToSection('contact')}
             >
               Contact
-            </NavLink>
+            </Link>
           </li>
         </ul>
       </div>
