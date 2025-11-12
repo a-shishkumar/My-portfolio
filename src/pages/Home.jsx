@@ -8,7 +8,7 @@ import Skills from "./Skills";
 import Projects from "./Projects";
 import Experience from "./Experience";
 import Contacts from "./Contacts";
-import Footer from "./footer";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
