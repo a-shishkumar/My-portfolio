@@ -8,7 +8,7 @@ import Skills from "./Skills";
 import Projects from "./Projects";
 import Experience from "./Experience";
 import Contacts from "./Contacts";
-import Footer from "./footer";
+// import Footer from "./footer";
 
 const Home = () => {
   return (
@@ -53,7 +53,7 @@ const Home = () => {
             <Contacts />
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );
