@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { Renderer, Transform, Vec3, Color, Polyline } from 'ogl';
+import { useEffect, useRef } from "react";
+import { Renderer, Transform, Vec3, Color, Polyline } from "ogl";
 
-import './Ribbons.css';
+import "./Ribbons.css";
 
 const Ribbons = ({
-  colors = ['#FC8EAC'],
+  colors = ["#FC8EAC"],
   baseSpring = 0.03,
   baseFriction = 0.9,
   baseThickness = 30,
@@ -15,7 +15,8 @@ const Ribbons = ({
   enableFade = false,
   enableShaderEffect = false,
   effectAmplitude = 2,
-  backgroundColor = [0, 0, 0, 0]
+  backgroundColor = [0, 0, 0, 0],
+  className = "",
 }) => {
   const containerRef = useRef(null);
 
@@ -23,7 +24,10 @@ const Ribbons = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({ dpr: window.devicePixelRatio || 2, alpha: true });
+    const renderer = new Renderer({
+      dpr: window.devicePixelRatio || 2,
+      alpha: true,
+    });
     const gl = renderer.gl;
     if (Array.isArray(backgroundColor) && backgroundColor.length === 4) {
       gl.clearColor(
@@ -36,11 +40,12 @@ const Ribbons = ({
       gl.clearColor(0, 0, 0, 0);
     }
 
-    gl.canvas.style.position = 'absolute';
-    gl.canvas.style.top = '0';
-    gl.canvas.style.left = '0';
-    gl.canvas.style.width = '100%';
-    gl.canvas.style.height = '100%';
+    gl.canvas.style.position = "absolute";
+    gl.canvas.style.top = "0";
+    gl.canvas.style.left = "0";
+    gl.canvas.style.width = "100%";
+    gl.canvas.style.height = "100%";
+    gl.canvas.style.zIndex = "15";
     container.appendChild(gl.canvas);
 
     const scene = new Transform();
@@ -110,9 +115,9 @@ const Ribbons = ({
       const width = container.clientWidth;
       const height = container.clientHeight;
       renderer.setSize(width, height);
-      lines.forEach(line => line.polyline.resize());
+      lines.forEach((line) => line.polyline.resize());
     }
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     const center = (colors.length - 1) / 2;
     colors.forEach((color, index) => {
@@ -129,7 +134,7 @@ const Ribbons = ({
         spring,
         friction,
         mouseVelocity: new Vec3(),
-        mouseOffset
+        mouseOffset,
       };
 
       const count = pointCount;
@@ -150,8 +155,8 @@ const Ribbons = ({
           uTime: { value: 0.0 },
           uEnableShaderEffect: { value: enableShaderEffect ? 1.0 : 0.0 },
           uEffectAmplitude: { value: effectAmplitude },
-          uEnableFade: { value: enableFade ? 1.0 : 0.0 }
-        }
+          uEnableFade: { value: enableFade ? 1.0 : 0.0 },
+        },
       });
       line.polyline.mesh.setParent(scene);
       lines.push(line);
@@ -162,21 +167,20 @@ const Ribbons = ({
     const mouse = new Vec3();
     function updateMouse(e) {
       let x, y;
-      const rect = container.getBoundingClientRect();
       if (e.changedTouches && e.changedTouches.length) {
-        x = e.changedTouches[0].clientX - rect.left;
-        y = e.changedTouches[0].clientY - rect.top;
+        x = e.changedTouches[0].clientX;
+        y = e.changedTouches[0].clientY;
       } else {
-        x = e.clientX - rect.left;
-        y = e.clientY - rect.top;
+        x = e.clientX;
+        y = e.clientY;
       }
-      const width = container.clientWidth;
-      const height = container.clientHeight;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
       mouse.set((x / width) * 2 - 1, (y / height) * -2 + 1, 0);
     }
-    container.addEventListener('mousemove', updateMouse);
-    container.addEventListener('touchstart', updateMouse);
-    container.addEventListener('touchmove', updateMouse);
+    window.addEventListener("mousemove", updateMouse);
+    window.addEventListener("touchstart", updateMouse);
+    window.addEventListener("touchmove", updateMouse);
 
     const tmp = new Vec3();
     let frameId;
@@ -187,8 +191,12 @@ const Ribbons = ({
       const dt = currentTime - lastTime;
       lastTime = currentTime;
 
-      lines.forEach(line => {
-        tmp.copy(mouse).add(line.mouseOffset).sub(line.points[0]).multiply(line.spring);
+      lines.forEach((line) => {
+        tmp
+          .copy(mouse)
+          .add(line.mouseOffset)
+          .sub(line.points[0])
+          .multiply(line.spring);
         line.mouseVelocity.add(tmp).multiply(line.friction);
         line.points[0].add(line.mouseVelocity);
 
@@ -212,10 +220,10 @@ const Ribbons = ({
     update();
 
     return () => {
-      window.removeEventListener('resize', resize);
-      container.removeEventListener('mousemove', updateMouse);
-      container.removeEventListener('touchstart', updateMouse);
-      container.removeEventListener('touchmove', updateMouse);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", updateMouse);
+      window.removeEventListener("touchstart", updateMouse);
+      window.removeEventListener("touchmove", updateMouse);
       cancelAnimationFrame(frameId);
       if (gl.canvas && gl.canvas.parentNode === container) {
         container.removeChild(gl.canvas);
@@ -233,10 +241,12 @@ const Ribbons = ({
     enableFade,
     enableShaderEffect,
     effectAmplitude,
-    backgroundColor
+    backgroundColor,
   ]);
 
-  return <div ref={containerRef} className="ribbons-container" />;
+  return (
+    <div ref={containerRef} className={`ribbons-container ${className}`} />
+  );
 };
 
 export default Ribbons;

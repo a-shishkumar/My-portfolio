@@ -14,6 +14,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      "@": path.resolve(__dirname, "src"),
       "react-native-web/dist/apis/StyleSheet/registry": path.resolve(
         __dirname,
         "src/shims/rnw-style-registry.js"

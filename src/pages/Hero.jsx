@@ -1,120 +1,313 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Sparkles, Github, Linkedin, Mail } from "lucide-react";
 import TextType from "../components/TextType";
+import { BorderBeam } from "../components/ui/border-beam";
+
+/*
+  Local uploaded image path (your uploaded file).
+  Your system/tooling can convert this local path into a served URL.
+*/
+const avatarUrl = "/mnt/data/efc69c2e-2a0b-42e8-a002-76ea7c7fd13e.png";
+
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const float = {
+  hidden: { y: 0 },
+  show: {
+    y: [0, -6, 0],
+    transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+  },
+};
 
 const Hero = () => {
+  const reduceMotion = useReducedMotion();
+
+  // control start of sliding animation for the name (after typing completes)
+  const [startSlide, setStartSlide] = useState(false);
+
+  // typing settings for the name TextType (keep in sync with the component props below)
+  const nameText = "I'm Ashish";
+  const nameTypingSpeed = 180; // ms per character (matches TextType prop)
+  const namePauseDuration = 1000; // same as pauseDuration prop in TextType
+
+  // Scroll to hero on mount (optional)
+  useEffect(() => {
+    const el = document.getElementById("hero");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // estimate when the name typing completes, then start the slide animation
+    if (!reduceMotion) {
+      // estimate: typing time = chars * speed + small buffer + pauseDuration
+      const estimatedTypingTime =
+        nameText.length * nameTypingSpeed + namePauseDuration + 250;
+      const t = setTimeout(() => setStartSlide(true), estimatedTypingTime);
+      return () => clearTimeout(t);
+    } else {
+      // if reduced motion is preferred, don't start sliding
+      setStartSlide(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduceMotion]);
+
+  // waving animation values (applied only when motion is allowed)
+  const waveAnim = { rotate: [0, 14, -8, 14, 0] };
+  const waveTrans = { repeat: Infinity, duration: 2.2, ease: "easeInOut" };
+
+  // sliding animation for name after typing completes
+  const nameSlideAnim =
+    startSlide && !reduceMotion ? { x: [0, 8, -8, 0] } : { x: 0 };
+  const nameSlideTrans =
+    startSlide && !reduceMotion
+      ? { duration: 3.2, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.4 }
+      : { duration: 0 };
+
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-transparent">
-      {/* Greeting */}
-      <motion.h1
-        className="text-5xl sm:text-6xl font-extrabold mb-4"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Hello,&nbsp;
-        <TextType
-          text="I'm Ashish"
-          as="span"
-          className="text-purple-400"
-          typingSpeed={170}
-          showCursor={true}
-          loop={true}
-          delay={3000} // wait 3 seconds before retyping
-        />
-        <motion.span
-          className="inline-block origin-[70%_70%] ml-2"
-          animate={{ rotate: [0, 14, -8, 14, 0] }}
-          transition={{
-            repeat: Infinity,
-            duration: 2,
-            ease: "easeInOut",
-          }}
+    <section
+      id="hero"
+      className="min-h-screen flex items-center mx-5xl py-12 px-[9vw]"
+      aria-labelledby="hero-heading"
+    >
+      <div className=" w-full max-w-full  text-center lg:text-left">
+        <motion.div
+          className="flex flex-col items-center lg:items-start gap-4  "
+          variants={container}
+          initial="hidden"
+          animate="show"
         >
-          👋
-        </motion.span>
-      </motion.h1>
+          <div className="w-full">
+            {/* Hello line */}
+            <motion.h1
+              variants={fadeUp}
+              className="text-4xl sm:text-5xl md:text-4xl font-extrabold tracking-tight leading-tight text-white"
+            >
+              Hello
+            </motion.h1>
 
-      {/* Tagline */}
-      <motion.h2
-        className="text-3xl sm:text-4xl font-semibold text-gray-300 mb-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-      >
-        Building seamless{" "}
-        <span className="text-purple-400">digital experiences</span> from
-        concept to code.
-      </motion.h2>
+            {/* Name (typed) + waving hand on same line; roles on next line */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-2 flex flex-col items-center lg:items-start"
+            >
+              {/* Line 1: Name typed (TextType) + waving hand */}
+              <motion.div
+                className="flex items-center gap-3"
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                {/* Wrapper for typed name — we animate this wrapper to slide after typing */}
+                <motion.span
+                  className="inline-flex items-center"
+                  animate={nameSlideAnim}
+                  transition={nameSlideTrans}
+                  whileHover={!reduceMotion ? { scale: 1.02, y: -2 } : {}}
+                >
+                  <motion.span
+                    className="text-xl sm:text-5xl md:text-7xl font-extrabold inline-flex items-center bg-clip-text text-transparent bg-gradient-to-r from-[#83b0e1] via-sky-400 to-blue-500"
+                    aria-hidden="false"
+                  >
+                    <TextType
+                      text={[nameText]}
+                      as="span"
+                      className="inline-block"
+                      typingSpeed={nameTypingSpeed}
+                      deletingSpeed={40}
+                      pauseDuration={namePauseDuration}
+                      showCursor={false}
+                      loop={false}
+                    />
+                  </motion.span>
+                </motion.span>
 
-      {/* Description */}
-      <motion.p
-        className="text-lg sm:text-xl text-gray-400 max-w-3xl mb-8 leading-relaxed"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-      >
-        I’m a passionate{" "}
-        <span className="text-purple-400 font-semibold">
-          Full Stack Developer
-        </span>{" "}
-        who thrives on transforming ideas into high-performing web applications.
-        I enjoy crafting intuitive user interfaces, architecting robust
-        backends, and delivering clean, efficient, and scalable solutions that
-        merge creativity with technology.
-      </motion.p>
+                {/* Waving hand aligned to right of name */}
+                {!reduceMotion ? (
+                  <motion.span
+                    aria-hidden="true"
+                    className="inline-block origin-[60%_60%] text-4xl"
+                    animate={waveAnim}
+                    transition={waveTrans}
+                  >
+                    👋
+                  </motion.span>
+                ) : (
+                  <span aria-hidden className="inline-block text-3xl">
+                    👋
+                  </span>
+                )}
+              </motion.div>
 
-      {/* Social Links */}
-      <motion.div
-        className="flex justify-center space-x-6 mb-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-      >
-        {/* LinkedIn */}
-        <Link
-          to="https://www.linkedin.com/in/ashish-kumar-b64066252"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative p-3 rounded-full transition duration-300"
-        >
-          <span className="absolute inset-0 bg-purple-500/20 scale-0 group-hover:scale-100 rounded-full transition-transform duration-300"></span>
-          <Linkedin className="relative w-8 h-8 text-gray-400 group-hover:text-purple-400 transition duration-300" />
-        </Link>
+              {/* Line 2: Roles (TextType) — inside a styled box */}
+              <div className="relative mt-7 p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
+                <BorderBeam colorFrom="#83b0e1" colorTo="#60a5fa" />
+                <motion.div
+                  className="text-xl font-semibold sm:text-xl text-slate-300"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25, duration: 0.6 }}
+                >
+                  <TextType
+                    text={[
+                      "Full Stack Developer",
+                      "Web Developer",
+                      "MERN Stack Developer",
+                      "Software Developer",
+                    ]}
+                    as="span"
+                    className="inline-block font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#83b0e1] via-sky-300 to-blue-400"
+                    typingSpeed={60}
+                    deletingSpeed={40}
+                    pauseDuration={1600}
+                    showCursor={!reduceMotion}
+                    loop={true}
+                  />
+                </motion.div>
+              </div>
+            </motion.div>
 
-        {/* GitHub */}
-        <Link
-          to="https://github.com/a-shishkumar"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative p-3 rounded-full transition duration-300"
-        >
-          <span className="absolute inset-0 bg-purple-500/20 scale-0 group-hover:scale-100 rounded-full transition-transform duration-300"></span>
-          <Github className="relative w-8 h-8 text-gray-400 group-hover:text-purple-400 transition duration-300" />
-        </Link>
+            {/* Short description */}
+            <motion.p
+              variants={fadeUp}
+              className="mt-7 text-sm sm:text-base font-semibold max-w-4xl text-slate-300   leading-relaxed"
+            >
+              I build accessible, fast and maintainable web apps. I focus on
+              responsive interfaces, clean code, and delightful user
+              experiences. Currently crafting full-stack projects using the
+              modern web stack.
+            </motion.p>
 
-        {/* Email */}
-        <Link
-          to="mailto:ASHISHKR.0727@GMAIL.COM?subject=Hello%20Ashish!&body=Hi%20Ashish,%20I%20would%20like%20to%20connect%20with%20you."
-          className="group relative p-3 rounded-full transition duration-300"
-        >
-          <span className="absolute inset-0 bg-purple-500/20 scale-0 group-hover:scale-100 rounded-full transition-transform duration-300"></span>
-          <Mail className="relative w-8 h-8 text-gray-400 group-hover:text-purple-400 transition duration-300" />
-        </Link>
-      </motion.div>
+            {/* Social + CTA */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4"
+            >
+              <div className="flex items-center gap-3">
+                {[
+                  {
+                    href: "https://www.linkedin.com/in/ashish-kumar-b64066252",
+                    label: "LinkedIn",
+                    icon: <Linkedin className="w-5 h-5" />,
+                  },
+                  {
+                    href: "https://github.com/a-shishkumar",
+                    label: "GitHub",
+                    icon: <Github className="w-5 h-5" />,
+                  },
+                  {
+                    href: "mailto:ASHISHKR.0727@GMAIL.COM?subject=Hello%20Ashish",
+                    label: "Email",
+                    icon: <Mail className="w-5 h-5" />,
+                  },
+                ].map((item) => (
+                  <motion.a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${item.label}`}
+                    whileHover={!reduceMotion ? { scale: 1.06, y: -2 } : {}}
+                    whileTap={!reduceMotion ? { scale: 0.94 } : {}}
+                    className="group inline-flex items-center justify-center p-2.5 rounded-full
+                      bg-gradient-to-br from-white/3 to-white/2 border border-white/6 backdrop-blur-md shadow-lg
+                      hover:shadow-lg hover:shadow-sky-400/30 transition-all duration-200"
+                  >
+                    {React.cloneElement(item.icon, {
+                      className:
+                        "text-[#83b0e1] group-hover:text-sky-300 group-hover:animate-spin group-hover:-translate-y-1 transition-all",
+                    })}
+                  </motion.a>
+                ))}
+              </div>
 
-      {/* Call to Action */}
-      <motion.button
-        className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 rounded-full shadow-lg transition duration-300"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-      >
-        <Sparkles className="w-5 h-5" />
-        Explore My Work
-      </motion.button>
+              <div className="flex gap-4 px-4 mt-4 sm:mt-0">
+                {/* Contact (now same frosted style as Resume) */}
+                <motion.a
+                  href="#contact"
+                  className="relative inline-flex items-center gap-2 px-6 py-3 rounded-full
+               font-semibold text-[#83b0e1] border border-[#83b0e1]/40
+               bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(131,176,225,0.15)]"
+                  whileHover={
+                    !reduceMotion
+                      ? {
+                          y: -4,
+                          scale: 1.05,
+                          boxShadow:
+                            "0 0 20px rgba(131,176,225,0.4), 0 0 35px rgba(96,186,255,0.2)",
+                        }
+                      : {}
+                  }
+                  whileTap={!reduceMotion ? { scale: 0.96 } : {}}
+                  transition={{ type: "spring", stiffness: 240, damping: 20 }}
+                >
+                  <BorderBeam colorFrom="#83b0e1" colorTo="#60a5fa" />
+                  Contact Me
+                </motion.a>
+
+                {/* Resume (unchanged frosted style) */}
+                <motion.a
+                  href="/assets/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative inline-flex items-center gap-2 px-6 py-3 rounded-full
+               font-semibold text-[#83b0e1] border border-[#83b0e1]/40
+               bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(131,176,225,0.15)]"
+                  whileHover={
+                    !reduceMotion
+                      ? {
+                          y: -4,
+                          scale: 1.05,
+                          boxShadow:
+                            "0 0 20px rgba(131,176,225,0.4), 0 0 35px rgba(96,186,255,0.2)",
+                        }
+                      : {}
+                  }
+                  whileTap={!reduceMotion ? { scale: 0.96 } : {}}
+                  transition={{ type: "spring", stiffness: 240, damping: 20 }}
+                >
+                  <BorderBeam colorFrom="#83b0e1" colorTo="#60a5fa" />
+                  Resume
+                </motion.a>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Decorative Sparkles on large screens */}
+          <motion.div
+            variants={float}
+            initial="hidden"
+            animate={reduceMotion ? undefined : "show"}
+            whileHover={!reduceMotion ? { scale: 1.1, rotate: 45 } : {}}
+            transition={{ duration: 0.3 }}
+            className="relative hidden lg:block self-center mt-2"
+            aria-hidden
+          >
+            <Sparkles className="w-7 h-12 text-[#83b0e1]/90" />
+          </motion.div>
+
+          {/* Optional small avatar image — uses local uploaded path (tooling can convert it) */}
+          <div className="hidden lg:block absolute right-12 bottom-12">
+            <img
+              src={avatarUrl}
+              alt="avatar"
+              className="w-20 h-20 rounded-full ring-2 ring-[#83b0e1]/30 object-cover shadow-lg"
+            />
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 };
