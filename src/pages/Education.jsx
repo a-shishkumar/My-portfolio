@@ -2,117 +2,87 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BorderBeam } from "@/components/ui/border-beam";
-import bookLoadingGif from "@/assets/Book loading.gif";
 
 const Education = () => {
   const educationData = [
     {
-      school: "University of Example",
-      degree: "Bachelor of Science in Computer Science",
-      session: "2018 - 2022",
-      description:
-        "Focused on software engineering, data structures, algorithms, and web development. Graduated with honours and worked on several team projects.",
+      name: "Bachelor of Technology in Computer Science",
+      university: "AKTU UNIVERSITY ",
+      percentage: "71%",
+      batch: "2021-2025",
+      degree: "B.Tech",
     },
     {
-      school: "High School Example",
-      degree: "High School Diploma",
-      session: "2014 - 2018",
-      description:
-        "Science stream with emphasis on mathematics and computer science.",
+      name: "Higher Secondary Certificate",
+      university: "CBSE",
+      percentage: "84%",
+      batch: "2020-2021",
+      degree: "HSC",
     },
-    // Add more education entries as needed
+    {
+      name: "Secondary School Certificate",
+      university: "CBSE",
+      percentage: "88%",
+      batch: "2018-2019",
+      degree: "SSC",
+    },
   ];
 
   return (
-    <section className="p-6 md:p-10 lg:p-14">
-      <motion.h2
-        className="text-3xl md:text-4xl font-extrabold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-yellow-300"
+    <section className="h-full flex flex-col justify-center items-center px-6 sm:px-10 lg:px-[9vw] py-3">
+      <motion.div
+        className="w-full max-w-5xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
-        Education
-      </motion.h2>
+        <motion.h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600 mb-6 text-center">
+          Education
+        </motion.h1>
 
-      <div className="max-w-7xl mx-auto">
-        <p className="text-center text-gray-400 mb-8 max-w-2xl mx-auto">
-          A concise timeline of my formal education — click or hover a card for
-          more details.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {educationData.map((edu, index) => (
-            <motion.article
+            <motion.div
               key={index}
-              className="relative"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.12, duration: 0.6 }}
-              whileHover={{ translateY: -6 }}
+              whileHover={{ scale: 1.02, y: -4 }}
+              className="relative"
             >
-              <Card className="h-full shadow-lg ring-1 ring-white/6 overflow-hidden bg-gradient-to-b from-gray-900/80 to-gray-800/60 border border-gray-700">
-                <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                  <img
-                    src={bookLoadingGif}
-                    alt={`book loading icon for ${edu.school}`}
-                    className="w-20 h-20 select-none"
-                  />
-
-                  <div className="flex flex-col min-w-0">
-                    <CardTitle className="text-lg md:text-xl font-semibold text-gray-100 truncate">
-                      {edu.school}
-                    </CardTitle>
-                    <p className="text-sm text-gray-400 truncate">
-                      {edu.degree}
-                    </p>
-                    <p className="text-sm font-medium text-amber-400 mt-1">
-                      {edu.session}
-                    </p>
-                  </div>
+              <Card className="relative p-6 bg-blue-500/5 backdrop-blur-md border border-gray-600 shadow-lg hover:shadow-[0_0_25px_rgba(79,149,224,0.5)] transition-shadow duration-300 overflow-hidden shadow-[0_0_20px_rgba(79,149,224,0.3)]">
+                <BorderBeam
+                  size={100}
+                  duration={8}
+                  colorFrom="#4f95e0"
+                  colorTo="#2563eb"
+                />
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-xl font-bold text-[#7EB1E4] mb-1">
+                    {edu.name}
+                  </CardTitle>
                 </CardHeader>
-
-                <CardContent className="pt-4">
-                  <p className="text-sm text-gray-300 leading-relaxed line-clamp-3">
-                    {edu.description}
+                <CardContent className="space-y-0.5">
+                  <p className="text-base text-gray-300 font-medium">
+                    {edu.university}
                   </p>
-
-                  <div className="mt-4 flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-medium bg-white/5 text-white/80 border border-white/10">
-                      Academic
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm text-gray-300">
+                      <span className="font-semibold text-[#4f95e0]">
+                        Batch:
+                      </span>{" "}
+                      {edu.batch}
+                    </p>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#4f95e0]/20 text-[#4f95e0] border border-[#4f95e0]/30 w-fit">
+                      {edu.percentage}
                     </span>
-                    <button
-                      className="text-xs px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/20 transition"
-                      onClick={() =>
-                        console.log(`Clicked details for ${edu.school}`)
-                      }
-                    >
-                      Details
-                    </button>
                   </div>
                 </CardContent>
               </Card>
-
-              <BorderBeam
-                size={120}
-                duration={3.5}
-                delay={index * 0.4}
-                colorFrom="#9c40ff"
-                colorTo="#ffaa40"
-              />
-            </motion.article>
+            </motion.div>
           ))}
         </div>
-      </div>
-
-      {/* small responsive helper - sticky CTA on small screens */}
-      <div className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 md:hidden">
-        <a
-          href="#top"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-medium shadow-lg ring-1 ring-white/10"
-        >
-          Back to top
-        </a>
-      </div>
+      </motion.div>
     </section>
   );
 };

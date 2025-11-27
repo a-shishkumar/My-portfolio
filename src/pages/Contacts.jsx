@@ -1,260 +1,392 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Send,
   Mail,
   Phone,
   MapPin,
   Sparkles,
-  User,
-  MessageSquare,
-  FileText,
+  Github,
+  Linkedin,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 const Contact = () => {
+  const reduceMotion = useReducedMotion();
+
+  // form state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
+    _honey: "", // honeypot to deter bots
   });
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [messageCount, setMessageCount] = useState(0);
+
+  useEffect(() => {
+    setMessageCount(formData.message.length);
+  }, [formData.message]);
+
+  // keep success message accessible
+  useEffect(() => {
+    if (success) {
+      const t = setTimeout(() => setSuccess(false), 4000);
+      return () => clearTimeout(t);
+    }
+  }, [success]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((p) => ({ ...p, [name]: value }));
+
+    // simple live validation: remove error when corrected
+    if (errors[name]) {
+      setErrors((prev) => {
+        const n = { ...prev };
+        delete n[name];
+        return n;
+      });
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors({});
-    setSuccess(false);
-    let newErrors = {};
+  const validate = () => {
+    const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Please enter a valid email";
     if (!formData.subject.trim()) newErrors.subject = "Subject is required";
     if (!formData.message.trim()) newErrors.message = "Message is required";
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length === 0) {
-      setLoading(true);
-      // Simulate API call
-      setTimeout(() => {
-        setSuccess(true);
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        setLoading(false);
-      }, 2000);
-    }
+    if (formData._honey) newErrors.bot = "Spam detected"; // honeypot
+    return newErrors;
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+    setSuccess(false);
+
+    const newErrors = validate();
+    if (Object.keys(newErrors).length) return setErrors(newErrors);
+
+    setLoading(true);
+    // simulate API call
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        _honey: "",
+      });
+    }, 1100);
+  };
+
+  const contactInfo = [
+    {
+      icon: <Mail className="w-5 h-5" aria-hidden />,
+      text: "ashish@example.com",
+      href: "mailto:ashish@example.com",
+      label: "Email Ashish",
+    },
+    {
+      icon: <Phone className="w-5 h-5" aria-hidden />,
+      text: "+91 98765 43210",
+      href: "tel:+919876543210",
+      label: "Call Ashish",
+    },
+    {
+      icon: <MapPin className="w-5 h-5" aria-hidden />,
+      text: "New Delhi, India",
+      href: "#",
+      label: "Location",
+    },
+  ];
+
+  const socialLinks = [
+    {
+      href: "https://www.linkedin.com/in/ashish-kumar-b64066252",
+      label: "LinkedIn",
+      icon: <Linkedin className="w-5 h-5" aria-hidden />,
+    },
+    {
+      href: "https://github.com/a-shishkumar",
+      label: "GitHub",
+      icon: <Github className="w-5 h-5" aria-hidden />,
+    },
+  ];
+
+  // motion helpers that respect reduced motion
+  const appear = reduceMotion
+    ? { initial: {}, animate: {} }
+    : {
+        initial: { opacity: 0, y: 12 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.45 },
+      };
+
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center px-6 py-16 bg-transparent">
-      {/* Heading */}
-      <motion.h1
-        className="text-5xl font-extrabold text-purple-400 mb-6 text-center"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Get In Touch
-      </motion.h1>
-
-      <motion.p
-        className="text-lg sm:text-xl text-gray-400 max-w-2xl mb-10 text-center leading-relaxed"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        Let’s collaborate or chat! I’m always open to discussing new projects,
-        creative ideas, or opportunities to be part of your vision.
-      </motion.p>
-
-      {/* Main Container */}
-      <motion.div
-        className="flex flex-col lg:flex-row items-center justify-center gap-10 w-full max-w-6xl"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.8 }}
-      >
-        {/* Left Side - Animated Image */}
-        <motion.div
-          className="w-full lg:w-1/2 flex justify-center items-center"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* You can use an animated GIF, Lottie, or SVG illustration here */}
-          <img
-            src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
-            alt="Contact animation"
-            className="w-80 sm:w-96 lg:w-full max-w-md rounded-2xl shadow-lg"
-          />
+    <section className="min-h-screen flex items-center justify-center px-6 py-16 bg-gradient-to-b from-slate-900/40 to-transparent">
+      <div className="w-full max-w-6xl">
+        <motion.div {...appear} className="mb-8 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600">
+            Get in Touch
+          </h1>
+          <p className="mt-3 text-gray-300 max-w-2xl mx-auto">
+            I’m open to new projects, collaborations, or a friendly chat. Fill
+            the form or reach me directly via the contact options.
+          </p>
         </motion.div>
 
-        {/* Right Side - Contact Form Card */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <Card className="bg-white/5 backdrop-blur-lg border border-white/10 shadow-xl w-full lg:w-full max-w-lg">
-            <CardHeader>
-              <CardTitle className="text-center text-purple-400 text-2xl">
-                Send a Message
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Contact Info */}
-              <div className="grid sm:grid-cols-3 gap-4 text-center text-gray-300">
-                <div className="flex flex-col items-center gap-2">
-                  <Mail className="text-purple-400 w-5 h-5" />
-                  <p className="text-sm">ashish@example.com</p>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <Phone className="text-purple-400 w-5 h-5" />
-                  <p className="text-sm">+91 98765 43210</p>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <MapPin className="text-purple-400 w-5 h-5" />
-                  <p className="text-sm">New Delhi, India</p>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Left: contact summary card */}
+          <motion.div {...appear} className="order-2 md:order-1">
+            <Card className="relative overflow-hidden rounded-2xl border border-slate-700/40 shadow-lg bg-gradient-to-br from-white/3 to-blue-50/2">
+              <BorderBeam
+                size={140}
+                duration={8}
+                colorFrom="#4f95e0"
+                colorTo="#2563eb"
+              />
 
-              {success && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-green-400 text-center bg-green-900/20 p-3 rounded-lg"
-                >
-                  Message sent successfully! I'll get back to you soon.
-                </motion.div>
-              )}
+              <CardHeader>
+                <CardTitle className="text-xl text-[#4f95e0]">
+                  Contact Info
+                </CardTitle>
+              </CardHeader>
 
-              {/* Contact Form */}
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-gray-300 mb-2 font-medium">
-                    Your Name
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full pl-10 pr-3 py-3 rounded-lg bg-white/10 border border-white/20 text-gray-100 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition"
-                      placeholder="Enter your full name"
-                    />
+              <CardContent className="space-y-4">
+                <p className="text-sm text-gray-300">
+                  Prefer email? I usually reply within 24–48 hours.
+                </p>
+
+                <div className="grid gap-3">
+                  {contactInfo.map((c, i) => (
+                    <a
+                      key={i}
+                      href={c.href}
+                      aria-label={c.label}
+                      className="flex items-center gap-3 p-3 rounded-lg bg-white/3 border border-white/6 hover:bg-white/4 transition"
+                    >
+                      <div className="text-[#4f95e0]">{c.icon}</div>
+                      <div className="text-sm text-gray-200">{c.text}</div>
+                    </a>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-3 mt-2">
+                  {socialLinks.map((s) => (
+                    <a
+                      key={s.href}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open ${s.label}`}
+                      className="p-2 rounded-full bg-white/3 border border-white/6 hover:bg-white/4 transition"
+                    >
+                      <span className="text-[#4f95e0]">{s.icon}</span>
+                    </a>
+                  ))}
+                </div>
+
+                <div className="mt-2 text-sm text-gray-400">
+                  <strong>Tip:</strong> Brief subject lines get faster
+                  responses.
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Right: form card */}
+          <motion.div {...appear} className="order-1 md:order-2">
+            <Card className="relative rounded-2xl border border-slate-700/40 shadow-lg bg-gradient-to-br from-white/3 to-blue-50/2">
+              <BorderBeam
+                size={100}
+                duration={6}
+                colorFrom="#4f95e0"
+                colorTo="#2563eb"
+              />
+
+              <CardHeader>
+                <CardTitle className="text-center text-[#4f95e0] text-2xl">
+                  Send a Message
+                </CardTitle>
+              </CardHeader>
+
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                  {/* accessible live region for status */}
+                  <div role="status" aria-live="polite">
+                    {success && (
+                      <div className="rounded-md bg-green-900/20 border border-green-500/20 text-green-300 p-3 text-center">
+                        Message sent successfully — thank you!
+                      </div>
+                    )}
                   </div>
-                  {errors.name && (
-                    <p className="text-red-400 text-sm mt-1">{errors.name}</p>
-                  )}
-                </div>
 
-                <div>
-                  <label className="block text-gray-300 mb-2 font-medium">
-                    Your Email
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+                  {/* honeypot - hidden from users */}
+                  <label
+                    style={{ position: "absolute", left: -9999 }}
+                    aria-hidden
+                  >
+                    Don’t fill this out if you’re human:
                     <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
+                      name="_honey"
+                      value={formData._honey}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-3 py-3 rounded-lg bg-white/10 border border-white/20 text-gray-100 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition"
-                      placeholder="your.email@example.com"
                     />
-                  </div>
-                  {errors.email && (
-                    <p className="text-red-400 text-sm mt-1">{errors.email}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-gray-300 mb-2 font-medium">
-                    Subject
                   </label>
-                  <div className="relative">
-                    <FileText className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
-                    <input
-                      type="text"
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm text-gray-300 mb-1">
+                        Your Name
+                      </label>
+                      <Input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Full name"
+                        aria-invalid={errors.name ? "true" : "false"}
+                        required
+                        className={`bg-white/6 border-white/10 text-gray-100 placeholder-gray-400 focus:border-[#4f95e0] focus:ring-[#4f95e0]/20 ${
+                          errors.name ? "ring-2 ring-red-500/30" : ""
+                        }`}
+                      />
+                      {errors.name && (
+                        <p className="text-xs text-red-400 mt-1">
+                          {errors.name}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm text-gray-300 mb-1">
+                        Your Email
+                      </label>
+                      <Input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="you@domain.com"
+                        aria-invalid={errors.email ? "true" : "false"}
+                        required
+                        className={`bg-white/6 border-white/10 text-gray-100 placeholder-gray-400 focus:border-[#4f95e0] focus:ring-[#4f95e0]/20 ${
+                          errors.email ? "ring-2 ring-red-500/30" : ""
+                        }`}
+                      />
+                      {errors.email && (
+                        <p className="text-xs text-red-400 mt-1">
+                          {errors.email}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-300 mb-1">
+                      Subject
+                    </label>
+                    <Input
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-3 py-3 rounded-lg bg-white/10 border border-white/20 text-gray-100 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition"
                       placeholder="What's this about?"
+                      aria-invalid={errors.subject ? "true" : "false"}
+                      required
+                      className={`bg-white/6 border-white/10 text-gray-100 placeholder-gray-400 focus:border-[#4f95e0] focus:ring-[#4f95e0]/20 ${
+                        errors.subject ? "ring-2 ring-red-500/30" : ""
+                      }`}
                     />
+                    {errors.subject && (
+                      <p className="text-xs text-red-400 mt-1">
+                        {errors.subject}
+                      </p>
+                    )}
                   </div>
-                  {errors.subject && (
-                    <p className="text-red-400 text-sm mt-1">
-                      {errors.subject}
-                    </p>
-                  )}
-                </div>
 
-                <div>
-                  <label className="block text-gray-300 mb-2 font-medium">
-                    Message
-                  </label>
-                  <div className="relative">
-                    <MessageSquare className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
-                    <textarea
+                  <div>
+                    <label className="flex justify-between text-sm text-gray-300 mb-1">
+                      <span>Message</span>
+                      <span className="text-xs text-gray-400">
+                        {messageCount}/1000
+                      </span>
+                    </label>
+                    <Textarea
                       name="message"
-                      rows="4"
+                      rows={5}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-3 py-3 rounded-lg bg-white/10 border border-white/20 text-gray-100 placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition resize-none"
                       placeholder="Tell me about your project or idea..."
-                    ></textarea>
+                      maxLength={1000}
+                      aria-invalid={errors.message ? "true" : "false"}
+                      required
+                      className={`bg-white/6 border-white/10 text-gray-100 placeholder-gray-400 focus:border-[#4f95e0] focus:ring-[#4f95e0]/20 resize-y ${
+                        errors.message ? "ring-2 ring-red-500/30" : ""
+                      }`}
+                    />
+                    {errors.message && (
+                      <p className="text-xs text-red-400 mt-1">
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
-                  {errors.message && (
-                    <p className="text-red-400 text-sm mt-1">
-                      {errors.message}
-                    </p>
-                  )}
-                </div>
 
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
-                >
-                  {loading ? (
-                    <>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 1 }}
-                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                      />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+                  <div>
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      aria-disabled={loading}
+                      className="w-full flex items-center justify-center gap-3 py-3 rounded-lg font-semibold shadow hover:shadow-lg transition transform active:scale-95"
+                    >
+                      {loading ? (
+                        <div className="flex items-center gap-2">
+                          <motion.div
+                            animate={reduceMotion ? {} : { rotate: 360 }}
+                            transition={{ repeat: Infinity, duration: 0.9 }}
+                            className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                          />
+                          Sending...
+                        </div>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          <span>Send Message</span>
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+
+        <motion.div
+          {...(reduceMotion
+            ? {}
+            : {
+                animate: { opacity: [0.5, 1, 0.5], scale: [1, 1.06, 1] },
+                transition: { repeat: Infinity, duration: 2 },
+              })}
+          className="mt-8 text-[#4f95e0] text-4xl flex justify-center"
+          aria-hidden
+        >
+          <Sparkles />
         </motion.div>
-      </motion.div>
-
-      {/* Decorative sparkles */}
-      <motion.div
-        className="mt-12 text-purple-500 text-4xl"
-        animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.1, 1] }}
-        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-      >
-        <Sparkles />
-      </motion.div>
+      </div>
     </section>
   );
 };

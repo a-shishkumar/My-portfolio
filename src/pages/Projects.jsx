@@ -11,6 +11,7 @@ import {
   CardContent,
 } from "../components/ui/card";
 import { Button } from "../components/ui/button";
+import { BorderBeam } from "../components/ui/border-beam";
 
 /**
  * Redesigned Projects section
@@ -32,6 +33,15 @@ const container = {
   },
 };
 
+const fadeUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut", delay },
+  },
+});
+
 const cardVariants = {
   hidden: { opacity: 0, y: 16 },
   show: {
@@ -43,43 +53,27 @@ const cardVariants = {
 
 export default function ProjectsSection({ projects = sampleProjects }) {
   return (
-    <section id="projects" className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <header className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-500">
-              Selected Projects
-            </h2>
-            <p className="mt-2 text-sm text-muted-foreground max-w-xl">
-              Handpicked projects demonstrating UI, backend integration, and
-              performance — built with modern tools and shipped to production.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() =>
-                document
-                  .getElementById("projects")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              Explore
-            </Button>
-            <a href="#contact" aria-label="Contact" className="inline-block">
-              <Button size="sm">Hire me</Button>
-            </a>
-          </div>
-        </header>
+    <section
+      id="projects"
+      className="h-full flex flex-col justify-center items-center px-6 sm:px-10 lg:px-[9vw] py-3"
+    >
+      <div className="w-full max-w-5xl">
+        <motion.header variants={fadeUp(0)} className="mb-6 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600">
+            Selected Projects
+          </h2>
+          <p className="mt-2 text-sm text-gray-300/90 max-w-xl mx-auto">
+            Handpicked projects demonstrating UI, backend integration, and
+            performance — built with modern tools and shipped to production.
+          </p>
+        </motion.header>
 
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
         >
           {projects.map((p, idx) => (
             <motion.article
@@ -88,9 +82,15 @@ export default function ProjectsSection({ projects = sampleProjects }) {
               whileHover={{ scale: 1.02 }}
               className="relative"
             >
-              <Card className="overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <Card className="relative overflow-hidden rounded-2xl bg-blue-500/5 backdrop-blur-md border border-gray-600 shadow-lg hover:shadow-[0_0_25px_rgba(79,149,224,0.5)] transition-shadow duration-300 shadow-[0_0_20px_rgba(79,149,224,0.3)]">
+                <BorderBeam
+                  size={100}
+                  duration={8}
+                  colorFrom="#4f95e0"
+                  colorTo="#2563eb"
+                />
                 <CardHeader className="p-0">
-                  <div className="relative h-56 sm:h-48 md:h-56 bg-slate-50 dark:bg-slate-900">
+                  <div className="relative h-40 sm:h-36 md:h-40 bg-slate-50 dark:bg-slate-900">
                     {/* image with gentle zoom on hover */}
                     {p.image ? (
                       <img
@@ -105,84 +105,68 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                       </div>
                     )}
 
-                    {/* dark gradient overlay for text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-                    <div className="absolute left-4 right-4 bottom-4 flex items-center justify-between">
-                      <div className="text-white">
-                        <h3 className="text-sm font-semibold drop-shadow-sm">
-                          {p.title}
-                        </h3>
-                        <p className="text-xs opacity-90 line-clamp-2 max-w-xs">
-                          {p.short || p.description}
-                        </p>
+                    {/* optional lottie if provided */}
+                    {p.lottie && (
+                      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 p-1 backdrop-blur-sm">
+                        <Lottie animationData={p.lottie} loop autoplay />
                       </div>
-
-                      {/* optional lottie if provided */}
-                      {p.lottie && (
-                        <div className="w-12 h-12 rounded-full bg-white/10 p-1 backdrop-blur-sm">
-                          <Lottie animationData={p.lottie} loop autoplay />
-                        </div>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </CardHeader>
 
                 <CardContent className="p-4">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                    <div className="flex-1">
-                      <p className="text-sm text-muted-foreground line-clamp-4">
-                        {p.description}
-                      </p>
+                  <h3 className="text-lg font-semibold mb-2 text-[#7EB1E4]">
+                    {p.title}
+                  </h3>
+                  <p className="text-sm text-gray-300 line-clamp-4 mb-3">
+                    {p.description}
+                  </p>
 
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {p.tags?.map((t) => (
-                          <span
-                            key={t}
-                            className="text-xs px-2 py-1 rounded-full bg-white/10 text-muted-foreground border border-white/6"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {p.tags?.map((t) => (
+                      <span
+                        key={t}
+                        className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#4f95e0]/20 text-[#4f95e0] border border-[#4f95e0]/30"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
 
-                    <div className="flex items-center gap-2">
-                      {p.live && (
-                        <a
-                          href={p.live}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-block"
+                  <div className="flex justify-end gap-2">
+                    {p.live && (
+                      <a
+                        href={p.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-block"
+                      >
+                        <Button
+                          size="sm"
+                          className="flex items-center gap-2 bg-[#4f95e0]/10 text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/20"
+                          aria-label={`Open live site for ${p.title}`}
                         >
-                          <Button
-                            size="sm"
-                            className="flex items-center gap-2"
-                            aria-label={`Open live site for ${p.title}`}
-                          >
-                            Live <ExternalLink className="w-4 h-4" />
-                          </Button>
-                        </a>
-                      )}
+                          Live <ExternalLink className="w-4 h-4" />
+                        </Button>
+                      </a>
+                    )}
 
-                      {p.repo && (
-                        <a
-                          href={p.repo}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-block"
+                    {p.repo && (
+                      <a
+                        href={p.repo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-block"
+                      >
+                        <Button
+                          size="sm"
+                          className="flex items-center gap-2 bg-[#4f95e0]/10 text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/20"
+                          aria-label={`Open code for ${p.title}`}
                         >
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="flex items-center gap-2"
-                            aria-label={`Open code for ${p.title}`}
-                          >
-                            <Github className="w-4 h-4" /> Code
-                          </Button>
-                        </a>
-                      )}
-                    </div>
+                          <Github className="w-4 h-4" /> Code
+                        </Button>
+                      </a>
+                    )}
                   </div>
                 </CardContent>
               </Card>

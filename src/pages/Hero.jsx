@@ -79,7 +79,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center mx-5xl py-12 px-[9vw]"
+      className="h-full mt-[19vh] my-4 flex items-center mx-5xl px-[9vw]"
       aria-labelledby="hero-heading"
     >
       <div className=" w-full max-w-full  text-center lg:text-left">
@@ -182,7 +182,7 @@ const Hero = () => {
             {/* Short description */}
             <motion.p
               variants={fadeUp}
-              className="mt-7 text-sm sm:text-base font-semibold max-w-4xl text-slate-300   leading-relaxed"
+              className="mt-7 text-sm sm:text-base  pl-0 font-semibold max-w-4xl text-slate-300   leading-relaxed"
             >
               I build accessible, fast and maintainable web apps. I focus on
               responsive interfaces, clean code, and delightful user
@@ -195,7 +195,7 @@ const Hero = () => {
               variants={fadeUp}
               className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 {[
                   {
                     href: "https://www.linkedin.com/in/ashish-kumar-b64066252",
@@ -297,15 +297,6 @@ const Hero = () => {
           >
             <Sparkles className="w-7 h-12 text-[#83b0e1]/90" />
           </motion.div>
-
-          {/* Optional small avatar image — uses local uploaded path (tooling can convert it) */}
-          <div className="hidden lg:block absolute right-12 bottom-12">
-            <img
-              src={avatarUrl}
-              alt="avatar"
-              className="w-20 h-20 rounded-full ring-2 ring-[#83b0e1]/30 object-cover shadow-lg"
-            />
-          </div>
         </motion.div>
       </div>
     </section>
