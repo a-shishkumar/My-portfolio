@@ -3,6 +3,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Download, Sparkles, Mail, Github, Linkedin } from "lucide-react";
 import { BorderBeam } from "../components/ui/border-beam";
 import { Card } from "../components/ui/card";
+import TextType from "../components/TextType";
+import contactGif from "../assets/contact.gif";
 
 // Mobile-first responsive variants and shared animations
 const container = {
@@ -56,13 +58,20 @@ export default function About() {
         {/* Header */}
         <motion.header variants={fadeUp(0)} aria-hidden={reduce}>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600 mb-6">
-            About Me
+            What I Do ?
           </h1>
           <p className="text-sm my-9 sm:text-base text-gray-300/90 leading-relaxed">
             I'm{" "}
-            <span className="font-bold text-[#4f95e0]">
-              Full-Stack Developer{" "}
-            </span>
+            <TextType
+              text={["Full-Stack Developer"]}
+              as="span"
+              className="font-bold text-[#4f95e0]"
+              typingSpeed={100}
+              deletingSpeed={40}
+              pauseDuration={2000}
+              showCursor={false}
+              loop={false}
+            />
             , a who builds fast, accessible, and delightful web experiences. I
             focus on clear code, practical UX, and ship features that solve real
             user problems. I enjoy working across the stack — from responsive
@@ -83,8 +92,8 @@ export default function About() {
               colorTo="#2563eb"
             />
             <img
-              src="/assets/developerskills.gif"
-              alt="Developer Skills"
+              src={contactGif}
+              alt="Contact Animation"
               className="flex-[0_0_35%] w-full h-auto object-contain rounded-lg hover:scale-105 transition-transform duration-300"
             />
             <div className="flex-[0_0_65%] px-3">
@@ -172,18 +181,7 @@ export default function About() {
         <motion.div
           variants={fadeUp(0.08)}
           className="mt-8 flex flex-col md:flex-row items-center justify-center gap-6"
-        >
-          <div className="flex items-center justify-center  gap-4">
-            <motion.div
-              aria-hidden
-              animate={{ rotate: [0, 8, -6, 0] }}
-              transition={{ repeat: Infinity, duration: 6 }}
-              className="text-3xl sm:text-4xl   text-[#60a5fa]"
-            >
-              <Sparkles className="text-center" />
-            </motion.div>
-          </div>
-        </motion.div>
+        ></motion.div>
       </motion.div>
     </section>
   );

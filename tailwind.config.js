@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         "dancing-script": ["Dancing Script", "cursive"],
+        "mrs-saint-delafield": ["Mrs Saint Delafield", "cursive"],
         satisfy: ["Satisfy", "cursive"],
       },
     },

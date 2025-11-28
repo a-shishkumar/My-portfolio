@@ -115,7 +115,7 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                 </CardHeader>
 
                 <CardContent className="p-4">
-                  <h3 className="text-lg font-semibold mb-2 text-[#7EB1E4]">
+                  <h3 className="text-2xl font-bold mb-2 text-[#7EB1E4]">
                     {p.title}
                   </h3>
                   <p className="text-sm text-gray-300 line-clamp-4 mb-3">
@@ -143,7 +143,7 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                       >
                         <Button
                           size="sm"
-                          className="flex items-center gap-2 bg-[#4f95e0]/10 text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/20"
+                          className="flex items-center gap-2 bg-yellow-500/10 text-yellow-500 border border-yellow-500/30 hover:bg-yellow-500/20"
                           aria-label={`Open live site for ${p.title}`}
                         >
                           Live <ExternalLink className="w-4 h-4" />
@@ -160,7 +160,7 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                       >
                         <Button
                           size="sm"
-                          className="flex items-center gap-2 bg-[#4f95e0]/10 text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/20"
+                          className="flex items-center gap-2 bg-yellow-500/10 text-yellow-500 border border-yellow-500/30 hover:bg-yellow-500/20"
                           aria-label={`Open code for ${p.title}`}
                         >
                           <Github className="w-4 h-4" /> Code

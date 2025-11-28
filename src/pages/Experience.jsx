@@ -13,15 +13,15 @@ const Experience = () => {
       duration: "3 months internship",
       responsibilities: [
         {
-          icon: <Code className="w-6 h-6" />,
+          icon: <Code className="w-6 h-6 text-yellow-500 z-10000" />,
           text: "Contributed to front-end and back-end development tasks.",
         },
         {
-          icon: <Database className="w-6 h-6" />,
+          icon: <Database className="w-6 h-6 text-yellow-500" />,
           text: "Worked with modern technologies like React, Node.js, and MongoDB.",
         },
         {
-          icon: <Palette className="w-6 h-6" />,
+          icon: <Palette className="w-6 h-6 text-yellow-500" />,
           text: "Improved UI/UX flow with responsive and accessible design.",
         },
       ],
@@ -62,29 +62,33 @@ const Experience = () => {
         </motion.h1>
 
         {experiences.map((exp, expIndex) => (
-          <div key={expIndex} className="space-y-6">
-            {/* Main Experience Card */}
-            <motion.div
-              variants={itemVariant}
-              custom={expIndex}
-              initial="hidden"
-              animate="show"
-              whileHover="hover"
-              className="relative"
-            >
-              <Card className="relative w-full p-6 bg-gradient-to-br from-white/3 to-blue-50/2 backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)]">
-                <BorderBeam
-                  size={110}
-                  duration={8}
-                  colorFrom="#4f95e0"
-                  colorTo="#2563eb"
-                />
-                <CardContent className="flex flex-col sm:flex-row items-center gap-6 p-0">
-                  <div className="flex-shrink-0 w-20 h-20 flex justify-center items-center rounded-full bg-[#4f95e0]/20 border border-[#4f95e0]/30">
-                    <Briefcase className="text-[#4f95e0] w-10 h-10" />
+          <motion.div
+            variants={itemVariant}
+            custom={expIndex}
+            initial="hidden"
+            animate="show"
+            whileHover="hover"
+            className="relative group"
+          >
+            <Card className="relative w-full p-6 bg-white/5 backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)]">
+              <BorderBeam
+                size={100}
+                duration={8}
+                colorFrom="#4f95e0"
+                colorTo="#2563eb"
+              />
+              <CardContent className="p-0 space-y-6">
+                <div className="flex flex-col sm:flex-row items-center gap-6">
+                  <div className="flex-shrink-0 w-20 h-20 flex justify-center items-center rounded-full  border border-[#4f95e0]/30">
+                    <motion.div
+                      whileHover={{ rotate: 12 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Briefcase className="text-[#4f95e0] w-10 h-10" />
+                    </motion.div>
                   </div>
                   <div className="flex flex-col gap-2 text-center sm:text-left">
-                    <h2 className="text-2xl font-semibold text-white">
+                    <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600">
                       {exp.title}
                     </h2>
                     <p className="text-gray-400 font-medium">{exp.company}</p>
@@ -95,42 +99,35 @@ const Experience = () => {
                       • {exp.duration}
                     </p>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Responsibility Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {exp.responsibilities.map((resp, respIndex) => (
-                <motion.div
-                  key={respIndex}
-                  variants={itemVariant}
-                  custom={expIndex * 3 + respIndex + 1}
-                  initial="hidden"
-                  animate="show"
-                  whileHover="hover"
-                  className="relative"
-                >
-                  <Card className="relative w-full p-4 bg-gradient-to-br from-white/3 to-blue-50/2 backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] flex flex-col items-center text-center">
-                    <BorderBeam
-                      size={90}
-                      duration={8}
-                      colorFrom="#4f95e0"
-                      colorTo="#2563eb"
-                    />
-                    <CardContent className="flex flex-col items-center gap-3 p-0">
-                      <div className="w-12 h-12 flex justify-center items-center rounded-full bg-[#4f95e0]/20 border border-[#4f95e0]/30">
-                        {resp.icon}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {exp.responsibilities.map((resp, respIndex) => (
+                    <motion.div
+                      key={respIndex}
+                      variants={itemVariant}
+                      custom={expIndex * 3 + respIndex + 1}
+                      initial="hidden"
+                      animate="show"
+                      whileHover="hover"
+                      className="relative group p-4 bg-white/5 backdrop-blur-md border border-slate-700/40 rounded-2xl flex flex-col items-center text-center"
+                    >
+                      <div className="w-12 h-12 flex justify-center items-center rounded-full bg-yellow-500/20 border border-yellow-500/30">
+                        <motion.div
+                          whileHover={{ rotate: 12 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {resp.icon}
+                        </motion.div>
                       </div>
-                      <p className="text-sm text-gray-300 leading-relaxed">
+                      <p className="text-sm text-gray-300 leading-relaxed mt-3">
                         {resp.text}
                       </p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         ))}
       </motion.div>
     </section>

@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
+import Header from "./Header";
 import Hero from "./Hero";
 import About from "./About";
 import Education from "./Education";
@@ -14,6 +15,7 @@ import Ribbons from "../components/Ribbons";
 const Home = () => {
   return (
     <>
+      <Header />
       {/* Option 2: Wrap entire content with Ribbons */}
       <div className="relative">
         <Ribbons className="fixed inset-0 -z-10" />

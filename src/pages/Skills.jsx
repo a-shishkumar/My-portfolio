@@ -41,7 +41,7 @@ const Skills = () => {
       y: 0,
       transition: { delay: i * 0.06, duration: 0.45 },
     }),
-    hover: { scale: 1.02, y: -4, transition: { duration: 0.18 } },
+    hover: { scale: 1.02, y: -3, transition: { duration: 0.18 } },
   };
 
   const renderItem = (skill, index) => (
@@ -56,7 +56,7 @@ const Skills = () => {
         role="listitem"
         aria-label={`${skill.name} logo`}
       >
-        <Card className="relative w-36 p-5 bg-gradient-to-br from-white/3 to-blue-50/2 backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] flex flex-col items-center">
+        <Card className="relative w-36 p-5 bg-gradient-to-br from-white/3 to-blue-50/2 backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_10px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] flex flex-col items-center">
           <BorderBeam
             size={110}
             duration={8}
@@ -109,7 +109,7 @@ const Skills = () => {
               key={skill.name}
               variants={itemVariant}
               custom={index}
-              className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-[#4f95e0]/20 text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/30 transition-colors duration-200"
+              className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/10 transition-all duration-200 shadow-[0_0_20px_rgba(79,149,224,0.3)] hover:shadow-[0_0_30px_rgba(79,149,224,0.25)]"
             >
               {skill.name}
             </motion.span>

@@ -3,12 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Sparkles, Github, Linkedin, Mail } from "lucide-react";
 import TextType from "../components/TextType";
 import { BorderBeam } from "../components/ui/border-beam";
-
-/*
-  Local uploaded image path (your uploaded file).
-  Your system/tooling can convert this local path into a served URL.
-*/
-const avatarUrl = "/mnt/data/efc69c2e-2a0b-42e8-a002-76ea7c7fd13e.png";
+import profileImg from "../assets/profile.png";
 
 const container = {
   hidden: {},
@@ -25,10 +20,20 @@ const fadeUp = {
 };
 
 const float = {
-  hidden: { y: 0 },
+  hidden: { scale: 0.8, y: 20, opacity: 0 },
   show: {
-    y: [0, -6, 0],
-    transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+    scale: 1,
+    y: [0, -10, 0],
+    opacity: 1,
+    transition: {
+      scale: { type: "spring", stiffness: 300, damping: 20 },
+      y: {
+        duration: 2,
+        repeat: Infinity,
+        ease: [0.68, -0.55, 0.265, 1.55],
+      },
+      opacity: { duration: 0.5 },
+    },
   },
 };
 
@@ -82,7 +87,7 @@ const Hero = () => {
       className="h-full mt-[19vh] my-4 flex items-center mx-5xl px-[9vw]"
       aria-labelledby="hero-heading"
     >
-      <div className=" w-full max-w-full  text-center lg:text-left">
+      <div className="w-full max-w-full flex flex-col lg:flex-row items-center lg:justify-between gap-8 text-center lg:text-left">
         <motion.div
           className="flex flex-col items-center lg:items-start gap-4  "
           variants={container}
@@ -93,7 +98,7 @@ const Hero = () => {
             {/* Hello line */}
             <motion.h1
               variants={fadeUp}
-              className="text-4xl sm:text-5xl md:text-4xl font-extrabold tracking-tight leading-tight text-white"
+              className="text-4xl sm:text-5xl md:text-4xl font-extrabold tracking-tight leading-tight text-[#FFCF50]/80"
             >
               Hello
             </motion.h1>
@@ -238,22 +243,22 @@ const Hero = () => {
                 <motion.a
                   href="#contact"
                   className="relative inline-flex items-center gap-2 px-6 py-3 rounded-full
-               font-semibold text-[#83b0e1] border border-[#83b0e1]/40
-               bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(131,176,225,0.15)]"
+               font-semibold text-[#ffd151] border border-[#ffd151]/40
+               bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(255,209,81,0.15)]"
                   whileHover={
                     !reduceMotion
                       ? {
                           y: -4,
                           scale: 1.05,
                           boxShadow:
-                            "0 0 20px rgba(131,176,225,0.4), 0 0 35px rgba(96,186,255,0.2)",
+                            "0 0 20px rgba(255,209,81,0.4), 0 0 35px rgba(255,180,0,0.2)",
                         }
                       : {}
                   }
                   whileTap={!reduceMotion ? { scale: 0.96 } : {}}
                   transition={{ type: "spring", stiffness: 240, damping: 20 }}
                 >
-                  <BorderBeam colorFrom="#83b0e1" colorTo="#60a5fa" />
+                  <BorderBeam colorFrom="#ffd151" colorTo="#ffbf00" />
                   Contact Me
                 </motion.a>
 
@@ -263,40 +268,46 @@ const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative inline-flex items-center gap-2 px-6 py-3 rounded-full
-               font-semibold text-[#83b0e1] border border-[#83b0e1]/40
-               bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(131,176,225,0.15)]"
+               font-semibold text-[#ffd151] border border-[#ffd151]/40
+               bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(255,209,81,0.15)]"
                   whileHover={
                     !reduceMotion
                       ? {
                           y: -4,
                           scale: 1.05,
                           boxShadow:
-                            "0 0 20px rgba(131,176,225,0.4), 0 0 35px rgba(96,186,255,0.2)",
+                            "0 0 20px rgba(255,209,81,0.4), 0 0 35px rgba(255,180,0,0.2)",
                         }
                       : {}
                   }
                   whileTap={!reduceMotion ? { scale: 0.96 } : {}}
                   transition={{ type: "spring", stiffness: 240, damping: 20 }}
                 >
-                  <BorderBeam colorFrom="#83b0e1" colorTo="#60a5fa" />
+                  <BorderBeam colorFrom="#ffd151" colorTo="#ffbf00" />
                   Resume
                 </motion.a>
               </div>
             </motion.div>
           </div>
+        </motion.div>
 
-          {/* Decorative Sparkles on large screens */}
-          <motion.div
-            variants={float}
-            initial="hidden"
-            animate={reduceMotion ? undefined : "show"}
-            whileHover={!reduceMotion ? { scale: 1.1, rotate: 45 } : {}}
-            transition={{ duration: 0.3 }}
-            className="relative hidden lg:block self-center mt-2"
-            aria-hidden
-          >
-            <Sparkles className="w-7 h-12 text-[#83b0e1]/90" />
-          </motion.div>
+        {/* Profile Image */}
+        <motion.div
+          variants={float}
+          initial="hidden"
+          animate={reduceMotion ? undefined : "show"}
+          className="relative flex-shrink-0 hidden lg:block"
+          whileHover={!reduceMotion ? { scale: 1.05, rotate: 2 } : {}}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
+            <BorderBeam colorFrom="#ffd151" colorTo="#ffbf00" />
+            <img
+              src={profileImg}
+              alt="Ashish Kumar Profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

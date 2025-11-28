@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BorderBeam } from "@/components/ui/border-beam";
+import educationGif from "/assets/education.gif";
 
 const Education = () => {
   const educationData = [
@@ -29,7 +30,7 @@ const Education = () => {
   ];
 
   return (
-    <section className="h-full flex flex-col justify-center items-center px-6 sm:px-10 lg:px-[9vw] py-3">
+    <section className="h-full flex flex-col justify-center items-center px-1 sm:px-10 lg:px-[9vw] py-1">
       <motion.div
         className="w-full max-w-5xl"
         initial={{ opacity: 0, y: 20 }}
@@ -50,34 +51,47 @@ const Education = () => {
               whileHover={{ scale: 1.02, y: -4 }}
               className="relative"
             >
-              <Card className="relative p-6 bg-blue-500/5 backdrop-blur-md border border-gray-600 shadow-lg hover:shadow-[0_0_25px_rgba(79,149,224,0.5)] transition-shadow duration-300 overflow-hidden shadow-[0_0_20px_rgba(79,149,224,0.3)]">
+              <Card className="relative p-2 bg-blue-500/5 backdrop-blur-md border border-gray-600 shadow-lg hover:shadow-[0_0_25px_rgba(79,149,224,0.5)] transition-shadow duration-300 overflow-hidden shadow-[0_0_20px_rgba(79,149,224,0.3)]">
                 <BorderBeam
                   size={100}
                   duration={8}
                   colorFrom="#4f95e0"
                   colorTo="#2563eb"
                 />
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-xl font-bold text-[#7EB1E4] mb-1">
-                    {edu.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-0.5">
-                  <p className="text-base text-gray-300 font-medium">
-                    {edu.university}
-                  </p>
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm text-gray-300">
-                      <span className="font-semibold text-[#4f95e0]">
-                        Batch:
-                      </span>{" "}
-                      {edu.batch}
-                    </p>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#4f95e0]/20 text-[#4f95e0] border border-[#4f95e0]/30 w-fit">
-                      {edu.percentage}
-                    </span>
+                <div className="flex gap-4 items-center ">
+                  <div className="flex-shrink-0">
+                    <img
+                      src={educationGif}
+                      alt="Education"
+                      className="w-25 h-30"
+                    />
                   </div>
-                </CardContent>
+                  <div className="my-0">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-3xl font-bold text-[#7EB1E4] mb-1">
+                        {edu.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 mx-2">
+                      <div className="flex gap-4 items-center justify-between">
+                        <p className="text-base text-gray-300 font-medium">
+                          {edu.university}
+                        </p>
+                        <p className="text-sm text-gray-300">
+                          <span className="font-semibold text-[#4f95e0]">
+                            Batch:
+                          </span>{" "}
+                          {edu.batch}
+                        </p>
+                      </div>
+                      <div className="flex justify-end">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#ffd151]/20 text-[#ffd151] border border-[#ffd151]/30">
+                          {edu.percentage}
+                        </span>
+                      </div>
+                    </CardContent>
+                  </div>
+                </div>
               </Card>
             </motion.div>
           ))}
