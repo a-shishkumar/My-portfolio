@@ -87,7 +87,7 @@ const Hero = () => {
       className="h-full mt-[19vh] my-4 flex items-center mx-5xl px-[9vw]"
       aria-labelledby="hero-heading"
     >
-      <div className="w-full max-w-full flex flex-col lg:flex-row items-center lg:justify-between gap-8 text-center lg:text-left">
+      <div className="w-full mt-30 max-w-full flex flex-col lg:flex-row items-center lg:justify-between gap-8 text-center lg:text-left">
         <motion.div
           className="flex flex-col items-center lg:items-start gap-4  "
           variants={container}

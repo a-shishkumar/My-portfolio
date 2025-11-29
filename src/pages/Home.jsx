@@ -10,16 +10,23 @@ import Experience from "./Experience";
 import Contacts from "./Contacts";
 import Footer from "./Footer";
 import { StarsBackground } from "../components/animate-ui/components/backgrounds/stars";
-import {
-  Dock,
-  DockIcon,
-  DockItem,
-  DockLabel,
-} from "../components/ui/shadcn-io/dock/index";
 import { Home as HomeIcon, User, Briefcase, Mail } from "lucide-react";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { FloatingDock } from "../components/ui/floating-dock";
+import { IoMdHome, IoMdContact } from "react-icons/io";
+import { GiSkills } from "react-icons/gi";
+import { GrProjects } from "react-icons/gr";
+import { FaGithub } from "react-icons/fa";
 
 const Home = () => {
+  const dockItems = [
+    { title: "Home", icon: <IoMdHome />, href: "#hero" },
+    { title: "Skills", icon: <GiSkills />, href: "#skills" },
+    { title: "Projects", icon: <GrProjects />, href: "#projects" },
+    { title: "GitHub", icon: <FaGithub />, href: "https://github.com" },
+    { title: "Contact", icon: <IoMdContact />, href: "#contact" },
+  ];
+
   return (
     <>
       <Header />
@@ -37,6 +44,12 @@ const Home = () => {
               <div id="about">
                 <About />
               </div>
+            </div>
+          </div>
+        </StarsBackground>
+        <StarsBackground className="text-white w-full min-h-full h-full flex flex-col relative z-10">
+          <div className="relative z-10 flex flex-col">
+            <div className="pt-20 p-8 flex-1">
               <div id="education">
                 <Education />
               </div>
@@ -52,6 +65,12 @@ const Home = () => {
               <div id="projects">
                 <Projects />
               </div>
+            </div>
+          </div>
+        </StarsBackground>
+        <StarsBackground className="text-white w-full min-h-full h-full flex flex-col relative z-10">
+          <div className="relative z-10 flex flex-col">
+            <div className="pt-20 p-8 flex-1">
               <div id="experience">
                 <Experience />
               </div>
@@ -63,38 +82,8 @@ const Home = () => {
           </div>
         </StarsBackground>
       </div>
-      <div className="fixed bottom-12 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-lg px-4">
-        <div className="relative">
-          <Dock>
-            <DockItem className="m-1">
-              <DockIcon>
-                <HomeIcon className="h-7 w-7 text-[#68B5EC] rounded-full" />
-              </DockIcon>
-              <DockLabel>Home</DockLabel>
-            </DockItem>
-
-            <DockItem className="m-1">
-              <DockIcon>
-                <User className="h-6 w-6 text-[#68B5EC]" />
-              </DockIcon>
-              <DockLabel>About</DockLabel>
-            </DockItem>
-
-            <DockItem className="m-1">
-              <DockIcon>
-                <Briefcase className="h-6 w-6 text-[#68B5EC]" />
-              </DockIcon>
-              <DockLabel>Projects</DockLabel>
-            </DockItem>
-
-            <DockItem className="m-1">
-              <DockIcon>
-                <Mail className="h-6 w-6 text-[#68B5EC]" />
-              </DockIcon>
-              <DockLabel>Contact</DockLabel>
-            </DockItem>
-          </Dock>
-        </div>
+      <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50">
+        <FloatingDock items={dockItems} />
       </div>
     </>
   );

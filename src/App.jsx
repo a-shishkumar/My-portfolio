@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
@@ -8,9 +8,18 @@ import Skills from "./pages/Skills";
 import Projects from "./pages/Projects";
 import Experience from "./pages/Experience";
 import Contacts from "./pages/Contacts";
+import SplashScreen from "./pages/SplashScreen";
 
 function App() {
-  return (
+  const [showSplash, setShowSplash] = useState(true);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
+
+  return showSplash ? (
+    <SplashScreen onComplete={handleSplashComplete} />
+  ) : (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
