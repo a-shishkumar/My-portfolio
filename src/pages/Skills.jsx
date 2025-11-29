@@ -45,18 +45,18 @@ const Skills = () => {
   };
 
   const renderItem = (skill, index) => (
-    <div key={`${skill.name}-${index}`} className="w-36 flex justify-center">
+    <div key={`${skill.name}-${index}`} className="w-36  flex justify-center">
       <motion.div
         variants={itemVariant}
         custom={index}
         initial="hidden"
         animate="show"
         whileHover="hover"
-        className="relative"
+        className="relative bg[#161A21]"
         role="listitem"
         aria-label={`${skill.name} logo`}
       >
-        <Card className="relative w-36 p-5 bg-gradient-to-br from-white/3 to-blue-50/2 backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_10px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] flex flex-col items-center">
+        <Card className="relative w-36 p-5 bg-[#161A21] backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_10px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] flex flex-col items-center">
           <BorderBeam
             size={110}
             duration={8}

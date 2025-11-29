@@ -70,7 +70,7 @@ const Experience = () => {
             whileHover="hover"
             className="relative group"
           >
-            <Card className="relative w-full p-6 bg-white/5 backdrop-blur-md border border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)]">
+            <Card className="relative w-full p-6 bg-[#161A21]  border border-[#4f95e0]/30 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)] hover:shadow-[0_0_20px_rgba(79,149,224,0.4)]">
               <BorderBeam
                 size={100}
                 duration={8}
@@ -109,7 +109,7 @@ const Experience = () => {
                       initial="hidden"
                       animate="show"
                       whileHover="hover"
-                      className="relative group p-4 bg-white/5 backdrop-blur-md border border-slate-700/40 rounded-2xl flex flex-col items-center text-center"
+                      className="relative group p-4 bg-[#161A21] backdrop-blur-md border border-[#4f95e0]/30 rounded-2xl flex flex-col items-center text-center transition-shadow duration-300 shadow-[0_0_20px_rgba(79,149,224,0.15)] hover:shadow-[0_0_25px_rgba(79,149,224,0.2)] overflow-hidden"
                     >
                       <div className="w-12 h-12 flex justify-center items-center rounded-full bg-yellow-500/20 border border-yellow-500/30">
                         <motion.div

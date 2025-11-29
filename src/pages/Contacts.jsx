@@ -164,7 +164,7 @@ const Contact = () => {
         >
           Get in Touch
         </motion.h1>
-        <Card className="relative w-full p-6 bg-[#242628] border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)]">
+        <Card className="relative w-full p-6 bg-[#161A21] border-slate-700/40 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)]">
           <BorderBeam
             size={100}
             duration={8}
@@ -228,7 +228,7 @@ const Contact = () => {
 
                 {/* Right: form card */}
                 <motion.div {...appear} className="order-1 md:order-3">
-                  <Card className="relative rounded-2xl border border-slate-700/40 shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)] bg-gradient-to-br from-white/3 to-blue-50/2 min-w-[35vw]">
+                  <Card className="relative rounded-2xl border border-slate-700/40 shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)] bg-[#161A21] min-w-[35vw]">
                     <BorderBeam
                       size={100}
                       duration={6}

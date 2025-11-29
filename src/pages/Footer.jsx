@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { Github, Linkedin, Mail, Sparkles } from "lucide-react";
-import { BorderBeam } from "@/components/ui/border-beam";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const socialLinks = [
@@ -23,14 +22,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full py-8 text-center bg-gradient-to-r from-[#4f95e0]/10 via-sky-400/5 to-blue-600/10 border-t border-[#4f95e0]/30 backdrop-blur-md relative overflow-hidden">
-      <BorderBeam
-        size={150}
-        duration={12}
-        colorFrom="#4f95e0"
-        colorTo="#2563eb"
-        className="absolute top-0 left-0"
-      />
+    <footer className="w-full py-8 text-center bg-black/40 backdrop-blur-md relative overflow-hidden">
       <motion.div
         className="relative z-10"
         initial={{ opacity: 0, y: 20 }}
@@ -96,14 +88,6 @@ const Footer = () => {
         >
           © 2025 Ashish Kumar. All rights reserved.
         </motion.div>
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-4 right-4 text-[#4f95e0]/50"
-        animate={{ opacity: [0.3, 0.7, 0.3], scale: [1, 1.1, 1] }}
-        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-      >
-        <Sparkles className="w-6 h-6" />
       </motion.div>
     </footer>
   );

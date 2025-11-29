@@ -10,16 +10,19 @@ import Experience from "./Experience";
 import Contacts from "./Contacts";
 import Footer from "./Footer";
 import { StarsBackground } from "../components/animate-ui/components/backgrounds/stars";
-import Ribbons from "../components/Ribbons";
+import {
+  Dock,
+  DockIcon,
+  DockItem,
+  DockLabel,
+} from "../components/ui/shadcn-io/dock/index";
+import { Home as HomeIcon, User, Briefcase, Mail } from "lucide-react";
 
 const Home = () => {
   return (
     <>
       <Header />
-      {/* Option 2: Wrap entire content with Ribbons */}
       <div className="relative">
-        <Ribbons className="fixed inset-0 -z-10" />
-
         <StarsBackground className="text-white w-full min-h-full flex flex-col relative z-10">
           <div className="relative z-10 flex flex-col">
             {/* <div className="z-30">
@@ -58,6 +61,34 @@ const Home = () => {
             <Footer />
           </div>
         </StarsBackground>
+      </div>
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+        <Dock>
+          <DockItem>
+            <DockIcon>
+              <HomeIcon className="h-6 w-6" />
+            </DockIcon>
+            <DockLabel>Home</DockLabel>
+          </DockItem>
+          <DockItem>
+            <DockIcon>
+              <User className="h-6 w-6" />
+            </DockIcon>
+            <DockLabel>About</DockLabel>
+          </DockItem>
+          <DockItem>
+            <DockIcon>
+              <Briefcase className="h-6 w-6" />
+            </DockIcon>
+            <DockLabel>Projects</DockLabel>
+          </DockItem>
+          <DockItem>
+            <DockIcon>
+              <Mail className="h-6 w-6" />
+            </DockIcon>
+            <DockLabel>Contact</DockLabel>
+          </DockItem>
+        </Dock>
       </div>
     </>
   );
