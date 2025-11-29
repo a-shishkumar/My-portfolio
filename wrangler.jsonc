@@ -1,6 +1,6 @@
 {
   // Cloudflare Wrangler config to upload static `dist` directory.
-  "name": "my-portfolio",
+  "name": "ashish-portfolio",
   "compatibility_date": "2025-11-29",
   "assets": {
     "directory": "./dist"
