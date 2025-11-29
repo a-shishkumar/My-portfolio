@@ -12,6 +12,10 @@ const __dirname = path.dirname(__filename);
 // and keeps the fix local to this project.
 export default defineConfig({
   plugins: [react()],
+  server: {
+    host: true, // Listen on all network interfaces
+    port: 5173, // Explicit port (optional)
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
