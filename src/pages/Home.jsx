@@ -17,6 +17,7 @@ import {
   DockLabel,
 } from "../components/ui/shadcn-io/dock/index";
 import { Home as HomeIcon, User, Briefcase, Mail } from "lucide-react";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 const Home = () => {
   return (
@@ -62,33 +63,38 @@ const Home = () => {
           </div>
         </StarsBackground>
       </div>
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-        <Dock>
-          <DockItem>
-            <DockIcon>
-              <HomeIcon className="h-6 w-6" />
-            </DockIcon>
-            <DockLabel>Home</DockLabel>
-          </DockItem>
-          <DockItem>
-            <DockIcon>
-              <User className="h-6 w-6" />
-            </DockIcon>
-            <DockLabel>About</DockLabel>
-          </DockItem>
-          <DockItem>
-            <DockIcon>
-              <Briefcase className="h-6 w-6" />
-            </DockIcon>
-            <DockLabel>Projects</DockLabel>
-          </DockItem>
-          <DockItem>
-            <DockIcon>
-              <Mail className="h-6 w-6" />
-            </DockIcon>
-            <DockLabel>Contact</DockLabel>
-          </DockItem>
-        </Dock>
+      <div className="fixed bottom-12 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-lg px-4">
+        <div className="relative">
+          <Dock>
+            <DockItem className="m-1">
+              <DockIcon>
+                <HomeIcon className="h-7 w-7 text-[#68B5EC] rounded-full" />
+              </DockIcon>
+              <DockLabel>Home</DockLabel>
+            </DockItem>
+
+            <DockItem className="m-1">
+              <DockIcon>
+                <User className="h-6 w-6 text-[#68B5EC]" />
+              </DockIcon>
+              <DockLabel>About</DockLabel>
+            </DockItem>
+
+            <DockItem className="m-1">
+              <DockIcon>
+                <Briefcase className="h-6 w-6 text-[#68B5EC]" />
+              </DockIcon>
+              <DockLabel>Projects</DockLabel>
+            </DockItem>
+
+            <DockItem className="m-1">
+              <DockIcon>
+                <Mail className="h-6 w-6 text-[#68B5EC]" />
+              </DockIcon>
+              <DockLabel>Contact</DockLabel>
+            </DockItem>
+          </Dock>
+        </div>
       </div>
     </>
   );
