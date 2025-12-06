@@ -70,7 +70,7 @@ const Home = () => {
         </StarsBackground>
         <StarsBackground className="text-white w-full min-h-full h-full flex flex-col relative z-10">
           <div className="relative z-10 flex flex-col">
-            <div className="pt-20 p-8 flex-1">
+            <div className="md:pt-20 p-6 mb-0 pb-0 md:p-8 flex-1">
               <div id="experience">
                 <Experience />
               </div>
@@ -82,7 +82,7 @@ const Home = () => {
           </div>
         </StarsBackground>
       </div>
-      <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50">
+      <div className="fixed bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 z-50">
         <FloatingDock items={dockItems} />
       </div>
     </>

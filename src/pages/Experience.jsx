@@ -60,7 +60,7 @@ const Experience = () => {
   };
 
   return (
-    <section className="h-full flex flex-col justify-center items-center px-6 sm:px-10 lg:px-[5vw]">
+    <section className="h-full flex flex-col justify-center items-center  sm:px-10 lg:px-[5vw]">
       <motion.div
         className="w-full max-w-[1400px]"
         initial="hidden"
@@ -92,23 +92,25 @@ const Experience = () => {
                   colorFrom="#4f95e0"
                   colorTo="#2563eb"
                 />
-                <CardContent className="p-0 space-y-6">
-                  <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <div className="flex-shrink-0 w-20 h-20 flex justify-center items-center rounded-full border border-[#4f95e0]/30">
+                <CardContent className="p-0 md:space-y-6">
+                  <div className="flex flex-col sm:flex-row items-center  md:gap-6">
+                    <div className="flex-shrink-0  w-12 md:w-20 h-12 md:h-20 flex justify-center items-center rounded-full border border-[#4f95e0]/30">
                       <motion.div
                         whileHover={{ rotate: 12 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <Briefcase className="text-[#4f95e0] w-10 h-10" />
+                        <Briefcase className="text-[#4f95e0] w-5 md:w-10 h-5 md:h-10" />
                       </motion.div>
                     </div>
-                    <div className="flex flex-col gap-2 text-center sm:text-left">
-                      <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600">
+                    <div className="flex flex-col md:gap-2 text-center sm:text-left">
+                      <h2 className="text-xl md:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600">
                         {exp.title}
                       </h2>
-                      <p className="text-gray-400 font-medium">{exp.company}</p>
+                      <p className="text-gray-400  text-sm md:text-lg md:font-medium">
+                        {exp.company}
+                      </p>
                       <p className="text-sm text-gray-400">
-                        <span className="text-[#4f95e0] font-semibold">
+                        <span className="text-[#4f95e0] text-sm md:font-semibold">
                           {exp.dates}
                         </span>{" "}
                         • {exp.duration}
@@ -144,43 +146,60 @@ const Experience = () => {
                   </div>
 
                   {/* Mobile: carousel card + dots */}
-                  <div 
-                    className="md:hidden flex flex-col items-center justify-center gap-4 w-full"
+                  <div
+                    className="md:hidden mt-2 flex flex-col items-center justify-center gap-2 w-full"
                     onTouchStart={(e) => {
                       const touchStartX = e.touches[0].clientX;
                       const touchStartY = e.touches[0].clientY;
-                      
+
                       const handleTouchMove = (moveEvent) => {
                         const touchEndX = moveEvent.changedTouches[0].clientX;
                         const touchEndY = moveEvent.changedTouches[0].clientY;
                         const diffX = touchStartX - touchEndX;
                         const diffY = touchStartY - touchEndY;
-                        
+
                         // Only trigger if horizontal movement is greater than vertical and exceeds threshold
-                        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
+                        if (
+                          Math.abs(diffX) > Math.abs(diffY) &&
+                          Math.abs(diffX) > 30
+                        ) {
                           if (diffX > 0) {
                             // Swipe left - show next
-                            setCurrentRespFor(expIndex, (currentResp + 1) % exp.responsibilities.length);
+                            setCurrentRespFor(
+                              expIndex,
+                              (currentResp + 1) % exp.responsibilities.length
+                            );
                           } else {
                             // Swipe right - show previous
-                            setCurrentRespFor(expIndex, (currentResp - 1 + exp.responsibilities.length) % exp.responsibilities.length);
+                            setCurrentRespFor(
+                              expIndex,
+                              (currentResp - 1 + exp.responsibilities.length) %
+                                exp.responsibilities.length
+                            );
                           }
-                          document.removeEventListener('touchend', handleTouchMove);
+                          document.removeEventListener(
+                            "touchend",
+                            handleTouchMove
+                          );
                         }
                       };
-                      
-                      document.addEventListener('touchend', handleTouchMove, { once: true });
+
+                      document.addEventListener("touchend", handleTouchMove, {
+                        once: true,
+                      });
                     }}
                   >
                     <motion.div
+                      key={`${expIndex}-${currentResp}`}
                       variants={itemVariant}
                       custom={expIndex + 1}
-                      initial="hidden"
-                      animate="show"
-                      whileHover="hover"
-                      className="relative group p-4 bg-[#161A21] backdrop-blur-md border border-[#4f95e0]/30 rounded-2xl flex flex-col items-center text-center transition-shadow duration-300 shadow-[0_0_20px_rgba(79,149,224,0.15)] hover:shadow-[0_0_25px_rgba(79,149,224,0.2)] overflow-hidden max-w-xs cursor-grab active:cursor-grabbing"
+                      initial={{ opacity: 0, x: 100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="relative group p-4 bg-[#161A21] backdrop-blur-md border border-[#4f95e0]/30 rounded-2xl flex flex-col items-center text-center transition-shadow duration-300 shadow-[0_0_20px_rgba(79,149,224,0.15)] hover:shadow-[0_0_25px_rgba(79,149,224,0.2)] overflow-hidden max-w-xs cursor-grab active:cursor-grabbing w-full"
                     >
-                      <div className="w-12 h-12 flex justify-center items-center rounded-full bg-yellow-500/20 border border-yellow-500/30">
+                      <div className="w-12  h-12 flex justify-center items-center rounded-full bg-yellow-500/20 border border-yellow-500/30">
                         <motion.div
                           whileHover={{ rotate: 12 }}
                           transition={{ duration: 0.3 }}
@@ -188,7 +207,7 @@ const Experience = () => {
                           {exp.responsibilities[currentResp].icon}
                         </motion.div>
                       </div>
-                      <p className="text-sm text-gray-300 leading-relaxed mt-3">
+                      <p className="text-sm text-gray-300 mt-2">
                         {exp.responsibilities[currentResp].text}
                       </p>
                     </motion.div>
