@@ -49,7 +49,7 @@ const Home = () => {
         </StarsBackground>
         <StarsBackground className="text-white w-full min-h-full h-full flex flex-col relative z-10">
           <div className="relative z-10 flex flex-col">
-            <div className="pt-20 p-8 flex-1">
+            <div className="md:pt-20 px-5 md:p-8 flex-1">
               <div id="education">
                 <Education />
               </div>
@@ -61,7 +61,7 @@ const Home = () => {
         </StarsBackground>
         <StarsBackground className="text-white w-full min-h-full h-full flex flex-col relative z-10">
           <div className="relative z-10 flex flex-col">
-            <div className="pt-20 p-8 flex-1">
+            <div className="md:pt-20 px-5 md:p-8 flex-1">
               <div id="projects">
                 <Projects />
               </div>

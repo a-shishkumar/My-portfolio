@@ -90,7 +90,7 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                   colorTo="#2563eb"
                 />
                 <CardHeader className="p-0">
-                  <div className="relative h-40 sm:h-36 md:h-40 bg-slate-50 dark:bg-slate-900">
+                  <div className="relative h-30 md:h-40 bg-slate-50 dark:bg-slate-900">
                     {/* image with gentle zoom on hover */}
                     {p.image ? (
                       <img
@@ -114,22 +114,22 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                   </div>
                 </CardHeader>
 
-                <CardContent className="p-4">
-                  <h3 className="text-2xl font-bold mb-2 text-[#7EB1E4]">
+                <CardContent className=" py-1 md:p-4">
+                  <h3 className="text-lg md:text-2xl font-bold md:mb-2 text-[#7EB1E4]">
                     {p.title}
                   </h3>
-                  <p className="text-sm text-gray-300 line-clamp-4 mb-3">
+                  <p className="text-sm text-gray-300 md:line-clamp-4 md:mb-3">
                     {p.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="flex flex-wrap gap-2 mb-3 justify-center">
                     {p.tags?.map((t) => (
-                      <span
+                      <img
                         key={t}
-                        className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#4f95e0]/20 text-[#4f95e0] border border-[#4f95e0]/30"
-                      >
-                        {t}
-                      </span>
+                        src={`/assets/tech logos/${techLogos[t]}`}
+                        alt={t}
+                        className="w-6 h-6 object-contain rounded-lg bg-blue-500/10 backdrop-blur-sm p-1 shadow-sm hover:scale-110 transition-all duration-300"
+                      />
                     ))}
                   </div>
 
@@ -173,16 +173,6 @@ export default function ProjectsSection({ projects = sampleProjects }) {
             </motion.article>
           ))}
         </motion.div>
-
-        <div className="mt-10 flex items-center justify-center">
-          <Button
-            size="md"
-            className="px-8 py-3"
-            onClick={() => (window.location.href = "/projects")}
-          >
-            See all projects
-          </Button>
-        </div>
       </div>
     </section>
   );
@@ -192,38 +182,132 @@ export default function ProjectsSection({ projects = sampleProjects }) {
 // Sample projects data
 // -------------------------
 
+const techLogos = {
+  React: "React.png",
+  "Tailwind CSS": "Tailwind CSS.png",
+  HTML: "HTML5.png",
+  Firebase: "Firebase.png",
+  JavaScript: "JavaScript.png",
+  TypeScript: "TypeScript.png",
+  Node: "Node.js.png",
+  CSS: "CSS3.png",
+  "Next.js": "Next.js.png",
+  FastAPI: "FastAPI.png",
+  Mongo: "MongoDB.png",
+  Express: "Express.png",
+  Socket: "Socket.io.png",
+  Bootstrap: "Bootstrap.png",
+};
+
 const sampleProjects = [
   {
     id: "p1",
+    title: "Bee Tennis",
+    description:
+      "A review paper site and visualizer for energy-efficient edge computing techniques.",
+    short: "Interactive research visualizer",
+    image: "/assets/projects/beetennis.png",
+    live: "https:beetennis.pages.dev",
+    repo: "https://github.com/yourname/edge-paper",
+    tags: [
+      "React",
+      "Tailwind CSS",
+      "HTML",
+      "Firebase",
+      "JavaScript",
+      "TypeScript",
+      "Node",
+    ],
+  },
+  {
+    id: "p2",
+    title: "British Army Orieentering Club",
+    description:
+      "A review paper site and visualizer for energy-efficient edge computing techniques.",
+    short: "Interactive research visualizer",
+    image: "/assets/projects/baoc.png",
+    live: "https:baoc-website.pages.dev",
+    repo: "https://github.com/yourname/edge-paper",
+    tags: [
+      "React",
+      "Tailwind CSS",
+      "HTML",
+      "Firebase",
+      "JavaScript",
+      "TypeScript",
+      "Node",
+    ],
+  },
+  {
+    id: "p3",
     title: "AI Content Generator",
     description:
       "A lightweight content generator built with Next.js, Tailwind and Clerk. Supports templates, image generation and markdown export.",
     short: "Content generator with templates & image AI",
-    image: "/projects/ai-content.png",
+    image: "/assets/projects/ai-generator.jpeg",
     live: "https://my-portfolio-ashy-one-37.vercel.app/",
     repo: "https://github.com/yourname/ai-content-generator",
-    tags: ["Next.js", "Tailwind", "Clerk"],
+    tags: [
+      "HTML",
+      "CSS",
+      "Tailwind",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "FastAPI",
+      "Node",
+    ],
   },
   {
-    id: "p2",
+    id: "p4",
     title: "MERN Chat App",
     description:
       "A realtime chat app using MongoDB, Express, React and Node with socket.io and file uploads.",
     short: "Realtime chat with socket.io",
-    image: "/projects/mern-chat.png",
+    image: "/assets/projects/chatapp.jpeg",
     live: "https://example-live-link.com",
     repo: "https://github.com/yourname/mern-chat",
-    tags: ["MERN", "Socket.io"],
+    tags: [
+      "HTML",
+      "CSS",
+      "Tailwind",
+      "Mongo",
+      "Express",
+      "Node",
+      "React",
+      "Socket",
+      "FastAPI",
+      "JavaScript",
+    ],
   },
   {
-    id: "p3",
-    title: "Energy-Efficient Edge Computing (Paper)",
+    id: "p5",
+    title: "News App",
     description:
       "A review paper site and visualizer for energy-efficient edge computing techniques.",
     short: "Interactive research visualizer",
-    image: "/projects/edge-paper.png",
+    image: "/assets/projects/newsapp.png",
     live: "https://example-live-link.com",
     repo: "https://github.com/yourname/edge-paper",
-    tags: ["Research", "Edge", "IoT"],
+    tags: [
+      "HTML",
+      "CSS",
+      "Bootstrap",
+      "FastAPI",
+      "React",
+      "Node",
+      "JavaScript",
+    ],
+  },
+  {
+    id: "p6",
+    title: "E-Commerce Website",
+    description:
+      "A review paper site and visualizer for energy-efficient edge computing techniques.",
+    short: "Interactive research visualizer",
+    image: "/assets/projects/e-commerce.png",
+    live: "https://example-live-link.com",
+    repo: "https://github.com/yourname/edge-paper",
+    tags: ["HTML", "CSS", "Bootstrap", "JavaScript", "React", "Node"],
   },
 ];
