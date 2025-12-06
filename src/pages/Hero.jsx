@@ -43,6 +43,9 @@ const Hero = () => {
   // control start of sliding animation for the name (after typing completes)
   const [startSlide, setStartSlide] = useState(false);
 
+  // scroll to top button visibility
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
   // typing settings for the name TextType (keep in sync with the component props below)
   const nameText = "I'm Ashish";
   const nameTypingSpeed = 180; // ms per character (matches TextType prop)
@@ -69,6 +72,15 @@ const Hero = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduceMotion]);
 
+  // scroll to top button visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // waving animation values (applied only when motion is allowed)
   const waveAnim = { rotate: [0, 14, -8, 14, 0] };
   const waveTrans = { repeat: Infinity, duration: 2.2, ease: "easeInOut" };
@@ -81,13 +93,35 @@ const Hero = () => {
       ? { duration: 3.2, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.4 }
       : { duration: 0 };
 
+  // scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <section
       id="hero"
-      className="h-full mt-[19vh] my-4 flex items-center mx-5xl px-[9vw]"
+      className="h-full   flex items-center mx-5xl px-[9vw]"
       aria-labelledby="hero-heading"
     >
-      <div className="w-full mt-30 max-w-full flex flex-col lg:flex-row items-center lg:justify-between gap-8 text-center lg:text-left">
+      <div className="w-full mt-18 md:mt-30 max-w-full flex flex-col lg:flex-row items-center lg:justify-between gap-2 md:gap-8 text-center lg:text-left">
+        {/* MOBILE: show profile image above the Hello text (only on small screens) */}
+        <motion.div
+          variants={float}
+          initial="hidden"
+          animate={reduceMotion ? undefined : "show"}
+          className="flex-shrink-0 lg:hidden flex justify-center w-full"
+        >
+          <div className="relative w-35 md:w-40 h-35 mdh-40 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl mb-2">
+            <BorderBeam colorFrom="#ffd151" colorTo="#ffbf00" />
+            <img
+              src={profileImg}
+              alt="Ashish Kumar Profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </motion.div>
+
         <motion.div
           className="flex flex-col items-center lg:items-start gap-4  "
           variants={container}
@@ -98,7 +132,8 @@ const Hero = () => {
             {/* Hello line */}
             <motion.h1
               variants={fadeUp}
-              className="text-4xl sm:text-5xl md:text-4xl font-extrabold tracking-tight leading-tight text-[#FFCF50]/80"
+              className="text-2xl md:text-4xl font-extrabold tracking-tight leading-tight 
+             text-[#FFCF50]/80 text-left ps-7 md:ps-0"
             >
               Hello
             </motion.h1>
@@ -123,7 +158,7 @@ const Hero = () => {
                   whileHover={!reduceMotion ? { scale: 1.02, y: -2 } : {}}
                 >
                   <motion.span
-                    className="text-xl sm:text-5xl md:text-7xl font-extrabold inline-flex items-center bg-clip-text text-transparent bg-gradient-to-r from-[#83b0e1] via-sky-400 to-blue-500"
+                    className="text-4xl sm:text-5xl md:text-7xl font-extrabold inline-flex items-center bg-clip-text text-transparent bg-gradient-to-r from-[#83b0e1] via-sky-400 to-blue-500 text-left "
                     aria-hidden="false"
                   >
                     <TextType
@@ -157,10 +192,10 @@ const Hero = () => {
               </motion.div>
 
               {/* Line 2: Roles (TextType) — inside a styled box */}
-              <div className="relative mt-7 p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
+              <div className="relative mt-3 md:mt-7 p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm text-left">
                 <BorderBeam colorFrom="#83b0e1" colorTo="#60a5fa" />
                 <motion.div
-                  className="text-xl font-semibold sm:text-xl text-slate-300"
+                  className="text-sm font-semibold sm:text-xl text-slate-300 text-left "
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.25, duration: 0.6 }}
@@ -187,7 +222,7 @@ const Hero = () => {
             {/* Short description */}
             <motion.p
               variants={fadeUp}
-              className="mt-7 text-sm sm:text-base  pl-0 font-semibold max-w-4xl text-slate-300   leading-relaxed"
+              className=" mt-3 md:mt-7 text-sm sm:text-base text-[#bdd5ef]  pl-0 font-semibold max-w-4xl leading-relaxed"
             >
               I build accessible, fast and maintainable web apps. I focus on
               responsive interfaces, clean code, and delightful user
@@ -198,24 +233,24 @@ const Hero = () => {
             {/* Social + CTA */}
             <motion.div
               variants={fadeUp}
-              className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4"
+              className=" mt-3 md:mt-8 flex md:items-center flex-col sm:flex-row sm:items-center sm:justify-start  gap-1  md:gap-4"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1  md:gap-4">
                 {[
                   {
                     href: "https://www.linkedin.com/in/ashish-kumar-b64066252",
                     label: "LinkedIn",
-                    icon: <Linkedin className="w-5 h-5" />,
+                    icon: <Linkedin className=" w-3  md:w-5 h-3 md:h-5" />,
                   },
                   {
                     href: "https://github.com/a-shishkumar",
                     label: "GitHub",
-                    icon: <Github className="w-5 h-5" />,
+                    icon: <Github className="w-3 md:w-5 h-3 md:h-5" />,
                   },
                   {
                     href: "mailto:ASHISHKR.0727@GMAIL.COM?subject=Hello%20Ashish",
                     label: "Email",
-                    icon: <Mail className="w-5 h-5" />,
+                    icon: <Mail className="w-3 md:w-5 h-3 md:h-5" />,
                   },
                 ].map((item) => (
                   <motion.a
@@ -226,7 +261,7 @@ const Hero = () => {
                     aria-label={`Open ${item.label}`}
                     whileHover={!reduceMotion ? { scale: 1.06, y: -2 } : {}}
                     whileTap={!reduceMotion ? { scale: 0.94 } : {}}
-                    className="group inline-flex items-center justify-center p-2.5 rounded-full
+                    className="group inline-flex items-center justify-center p-1.5 md:p-2.5 rounded-full
                       bg-gradient-to-br from-white/3 to-white/2 border border-white/6 backdrop-blur-md shadow-lg
                       hover:shadow-lg hover:shadow-sky-400/30 transition-all duration-200"
                   >
@@ -238,11 +273,11 @@ const Hero = () => {
                 ))}
               </div>
 
-              <div className="flex gap-4 px-4 mt-4 sm:mt-0">
+              <div className="flex gap-4 justify-center  px-auto md:px-4   md:mt-4 mt-1">
                 {/* Contact (now same frosted style as Resume) */}
                 <motion.a
                   href="#contact"
-                  className="relative inline-flex items-center gap-2 px-6 py-3 rounded-full
+                  className="relative text-sm md:text-lg inline-flex items-center gap-2 px-4 md:px-6  md:py-3 rounded-full
                font-semibold text-[#ffd151] border border-[#ffd151]/40
                bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(255,209,81,0.15)]"
                   whileHover={
@@ -267,7 +302,7 @@ const Hero = () => {
                   href="/assets/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex items-center gap-2 px-6 py-3 rounded-full
+                  className="relative text-sm md:text-lg inline-flex items-center gap-2 px-4 md:px-6 py-2  md:py-3 rounded-full
                font-semibold text-[#ffd151] border border-[#ffd151]/40
                bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(255,209,81,0.15)]"
                   whileHover={
@@ -291,7 +326,7 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Profile Image */}
+        {/* Profile Image for DESKTOP (unchanged) */}
         <motion.div
           variants={float}
           initial="hidden"
@@ -310,6 +345,19 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 p-3 bg-[#ffd151] text-black rounded-full shadow-lg hover:bg-[#ffbf00] transition-colors z-50"
+          whileHover={!reduceMotion ? { scale: 1.1 } : {}}
+          whileTap={!reduceMotion ? { scale: 0.9 } : {}}
+          aria-label="Scroll to top"
+        >
+          ↑
+        </motion.button>
+      )}
     </section>
   );
 };

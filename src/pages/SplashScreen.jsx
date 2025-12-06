@@ -11,7 +11,7 @@ const SplashScreen = ({ onComplete }) => {
       <TextType
         text="Ashish Kumar..."
         as="div"
-        className="text-center font-mrs-saint-delafield text-[#7EB1E3] text-6xl md:text-8xl"
+        className="text-center font-mrs-saint-delafield text-[#7EB1E3] text-5xl sm:6xl md:text-8xl"
         typingSpeed={200}
         initialDelay={300}
         loop={false}

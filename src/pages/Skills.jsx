@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { BorderBeam } from "@/components/ui/border-beam";
 import LogoLoop from "@/components/LogoLoop";
+import { IconCloud } from "@/components/ui/icon-cloud";
 
 const Skills = () => {
   const skills = [
@@ -86,7 +87,7 @@ const Skills = () => {
   );
 
   return (
-    <section className="h-full flex flex-col justify-center items-center px-6 sm:px-10 lg:px-[5vw]">
+    <section className="h-full flex flex-col justify-center items-center px-2 sm:px-10 lg:px-[5vw]">
       <motion.div
         className="w-full max-w-[1400px]"
         initial="hidden"
@@ -94,12 +95,12 @@ const Skills = () => {
         variants={containerVariant}
         transition={{ duration: 0.7 }}
       >
-        <motion.h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600 mb-8 text-center">
+        <motion.h1 className="text-3xl mt-2 md:mt-5 sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600 mb-2 md:b-8 text-center">
           Skills
         </motion.h1>
 
         <motion.div
-          className="flex flex-wrap justify-center gap-3 mb-8"
+          className="flex flex-wrap justify-center gap-1 md:gap-3 mb-2 md:mb-8"
           variants={containerVariant}
           initial="hidden"
           animate="show"
@@ -109,7 +110,7 @@ const Skills = () => {
               key={skill.name}
               variants={itemVariant}
               custom={index}
-              className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/10 transition-all duration-200 shadow-[0_0_20px_rgba(79,149,224,0.3)] hover:shadow-[0_0_30px_rgba(79,149,224,0.25)]"
+              className="inline-flex items-center px-2 md:px-4 py-1 md:py-2 rounded-full text-sm font-medium text-[#4f95e0] border border-[#4f95e0]/30 hover:bg-[#4f95e0]/10 transition-all duration-200 shadow-[0_0_10px_rgba(79,149,224,0.3)] hover:shadow-[0_0_30px_rgba(79,149,224,0.25)]"
             >
               {skill.name}
             </motion.span>
@@ -117,17 +118,22 @@ const Skills = () => {
         </motion.div>
 
         <div className="w-full">
-          <LogoLoop
-            logos={skills}
-            renderItem={renderItem}
-            speed={50}
-            direction="left"
-            logoHeight={130}
-            gap={15}
-            scaleOnHover={true}
-            pauseOnHover={true}
-            className="py-4"
-          />
+          <div className="flex justify-center items-center  md:hidden">
+            <IconCloud images={skills.map((skill) => skill.src)} />
+          </div>
+          <div className="hidden md:block">
+            <LogoLoop
+              logos={skills}
+              renderItem={renderItem}
+              speed={50}
+              direction="left"
+              logoHeight={130}
+              gap={15}
+              scaleOnHover={true}
+              pauseOnHover={true}
+              className="py-1 md:py-4"
+            />
+          </div>
         </div>
       </motion.div>
     </section>
