@@ -156,11 +156,11 @@ const Contact = () => {
       };
 
   return (
-    <section className="min-h-screen flex items-center justify-center md:px-6 md:py-16 ">
+    <section className="h-full flex items-center justify-center md:px-6 md:py-16 ">
       <div className="w-full max-w-6xl lg:max-w-[70vw]">
         <motion.h1
           {...appear}
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600 mb-8 text-center"
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600 mt-4 md:mt-7 mb-2 md:mb-8 text-center"
         >
           Get in Touch
         </motion.h1>
@@ -264,7 +264,7 @@ const Contact = () => {
 
                         <div className="grid grid-cols-1 gap-3">
                           <div>
-                            <label className="flex justify-between text-sm text-gray-300 mb-1">
+                            <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                               Your Name
                             </label>
                             <div className="flex-1">
@@ -288,7 +288,7 @@ const Contact = () => {
                           </div>
 
                           <div>
-                            <label className="flex justify-between text-sm text-gray-300 mb-1">
+                            <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                               Your Email
                             </label>
                             <div className="flex-1">
@@ -314,7 +314,7 @@ const Contact = () => {
                         </div>
 
                         <div>
-                          <label className="flex justify-between text-sm text-gray-300 mb-1">
+                          <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                             Subject
                           </label>
                           <div className="flex-1">
@@ -338,7 +338,7 @@ const Contact = () => {
                         </div>
 
                         <div>
-                          <label className="flex justify-between text-sm text-gray-300 mb-1">
+                          <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                             <span>Message</span>
                             <span className="text-xs text-gray-400">
                               {messageCount}/1000
@@ -369,7 +369,7 @@ const Contact = () => {
                             type="submit"
                             disabled={loading}
                             aria-disabled={loading}
-                            className="w-full flex items-center  justify-center gap-3 md:py-3 rounded-lg font-semibold shadow hover:shadow-lg transition transform active:scale-95"
+                            className="w-full flex items-center  justify-center gap-3 py-2 my-3 md:py-3 rounded-lg font-semibold shadow hover:shadow-lg transition transform active:scale-95 bg-[#24272E] text-gray-300/80"
                           >
                             {loading ? (
                               <div className="flex items-center gap-2">
@@ -441,7 +441,7 @@ const Contact = () => {
 
                           <div className="grid grid-cols-1 gap-3">
                             <div>
-                              <label className="flex justify-between text-sm text-gray-300 mb-1">
+                              <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                                 Your Name
                               </label>
                               <div className="flex-1">
@@ -465,7 +465,7 @@ const Contact = () => {
                             </div>
 
                             <div>
-                              <label className="flex justify-between text-sm text-gray-300 mb-1">
+                              <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                                 Your Email
                               </label>
                               <div className="flex-1">
@@ -491,7 +491,7 @@ const Contact = () => {
                           </div>
 
                           <div>
-                            <label className="flex justify-between text-sm text-gray-300 mb-1">
+                            <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                               Subject
                             </label>
                             <div className="flex-1">
@@ -515,7 +515,7 @@ const Contact = () => {
                           </div>
 
                           <div>
-                            <label className="flex justify-between text-sm text-gray-300 mb-1">
+                            <label className="flex justify-between text-sm text-gray-300/80 mb-1">
                               <span>Message</span>
                               <span className="text-xs text-gray-400">
                                 {messageCount}/1000
@@ -546,7 +546,7 @@ const Contact = () => {
                               type="submit"
                               disabled={loading}
                               aria-disabled={loading}
-                              className="w-full flex items-center justify-center gap-3 py-3 rounded-lg font-semibold shadow hover:shadow-lg transition transform active:scale-95"
+                              className="w-full flex items-center justify-center gap-3 py-3 rounded-lg font-semibold shadow hover:shadow-lg transition transform active:scale-95 bg-[#24272E] text-gray-300/80"
                             >
                               {loading ? (
                                 <div className="flex items-center gap-2">

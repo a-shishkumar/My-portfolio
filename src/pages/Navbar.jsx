@@ -5,7 +5,7 @@ const Navbar = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -17,8 +17,8 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300"
-              onClick={() => scrollToSection('hero')}
+              className="hover:text-gray-300/80"
+              onClick={() => scrollToSection("hero")}
             >
               Home
             </Link>
@@ -26,8 +26,8 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300"
-              onClick={() => scrollToSection('about')}
+              className="hover:text-gray-300/80"
+              onClick={() => scrollToSection("about")}
             >
               About
             </Link>
@@ -35,8 +35,8 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300"
-              onClick={() => scrollToSection('education')}
+              className="hover:text-gray-300/80"
+              onClick={() => scrollToSection("education")}
             >
               Education
             </Link>
@@ -44,8 +44,8 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300"
-              onClick={() => scrollToSection('skills')}
+              className="hover:text-gray-300/80"
+              onClick={() => scrollToSection("skills")}
             >
               Skills
             </Link>
@@ -53,8 +53,8 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300"
-              onClick={() => scrollToSection('projects')}
+              className="hover:text-gray-300/80"
+              onClick={() => scrollToSection("projects")}
             >
               Projects
             </Link>
@@ -62,8 +62,8 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300"
-              onClick={() => scrollToSection('experience')}
+              className="hover:text-gray-300/80"
+              onClick={() => scrollToSection("experience")}
             >
               Experience
             </Link>
@@ -71,8 +71,8 @@ const Navbar = () => {
           <li>
             <Link
               to="/"
-              className="hover:text-gray-300"
-              onClick={() => scrollToSection('contact')}
+              className="hover:text-gray-300/80"
+              onClick={() => scrollToSection("contact")}
             >
               Contact
             </Link>

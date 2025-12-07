@@ -65,7 +65,7 @@ export default function About() {
             <TextType
               text={["Full-Stack Developer"]}
               as="span"
-              className="font-bold text-[#4f95e0]"
+              className="font-bold text-gray-300/80"
               typingSpeed={100}
               deletingSpeed={40}
               pauseDuration={2000}

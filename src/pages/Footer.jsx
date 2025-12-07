@@ -57,7 +57,7 @@ const Footer = () => {
         </motion.div>
 
         <motion.div
-          className="text-gray-300 text-sm sm:text-base mb-2"
+          className="text-gray-300/80 text-sm sm:text-base mb-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.6 }}

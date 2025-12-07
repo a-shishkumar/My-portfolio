@@ -60,9 +60,9 @@ export default function ProjectsSection({ projects = sampleProjects }) {
       <div className="w-full max-w-5xl">
         <motion.header variants={fadeUp(0)} className="mb-6 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#4f95e0] via-sky-400 to-blue-600">
-            Selected Projects
+            Projects
           </h2>
-          <p className="mt-2 text-sm text-gray-300/90 max-w-xl mx-auto">
+          <p className="md:mt-2 text-sm text-gray-300/80 max-w-xl mx-auto">
             Handpicked projects demonstrating UI, backend integration, and
             performance — built with modern tools and shipped to production.
           </p>
@@ -118,7 +118,7 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                   <h3 className="text-lg md:text-2xl font-bold md:mb-2 text-[#7EB1E4]">
                     {p.title}
                   </h3>
-                  <p className="text-sm text-gray-300 md:line-clamp-4 md:mb-3">
+                  <p className="text-sm text-gray-300/80 md:line-clamp-4 md:mb-3">
                     {p.description}
                   </p>
 
@@ -151,7 +151,7 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                       </a>
                     )}
 
-                    {p.repo && (
+                    {/* {p.repo && (
                       <a
                         href={p.repo}
                         target="_blank"
@@ -166,7 +166,7 @@ export default function ProjectsSection({ projects = sampleProjects }) {
                           <Github className="w-4 h-4" /> Code
                         </Button>
                       </a>
-                    )}
+                    )} */}
                   </div>
                 </CardContent>
               </Card>

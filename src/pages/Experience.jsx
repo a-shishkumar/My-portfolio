@@ -83,9 +83,9 @@ const Experience = () => {
               initial="hidden"
               animate="show"
               whileHover="hover"
-              className="relative group mb-6"
+              className="relative group mb-3 md:mb-6"
             >
-              <Card className="relative w-full p-6 bg-[#161A21] border border-[#4f95e0]/30 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)] hover:shadow-[0_0_20px_rgba(79,149,224,0.4)]">
+              <Card className="relative w-full md:p-6 p-3 bg-[#161A21] border border-[#4f95e0]/30 rounded-2xl overflow-hidden shadow-lg transition-shadow duration-300 shadow-[0_0_30px_rgba(79,149,224,0.25)] shadow-[0_0_20px_rgba(79,149,224,0.3)] shadow-[inset 0 0 0 1px rgba(79,149,224,0.3)] drop-shadow-[0_0_10px_rgba(79,149,224,0.5)] hover:shadow-[0_0_20px_rgba(79,149,224,0.4)]">
                 <BorderBeam
                   size={100}
                   duration={8}
@@ -138,7 +138,7 @@ const Experience = () => {
                             {resp.icon}
                           </motion.div>
                         </div>
-                        <p className="text-sm text-gray-300 leading-relaxed mt-3">
+                        <p className="text-sm text-gray-300/80 leading-relaxed mt-3">
                           {resp.text}
                         </p>
                       </motion.div>
@@ -207,7 +207,7 @@ const Experience = () => {
                           {exp.responsibilities[currentResp].icon}
                         </motion.div>
                       </div>
-                      <p className="text-sm text-gray-300 mt-2">
+                      <p className="text-sm text-gray-300/80 mt-2">
                         {exp.responsibilities[currentResp].text}
                       </p>
                     </motion.div>

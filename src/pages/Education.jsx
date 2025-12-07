@@ -85,10 +85,10 @@ const Education = () => {
           </CardHeader>
           <CardContent className="space-y-2 mx-2">
             <div className="flex gap-4 items-center justify-between">
-              <p className="text-base text-gray-300 font-medium">
+              <p className="text-base text-gray-300/80 font-medium">
                 {edu.university}
               </p>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-gray-300/80">
                 <span className="font-semibold text-[#4f95e0]">Batch:</span>{" "}
                 {edu.batch}
               </p>
@@ -126,13 +126,13 @@ const Education = () => {
             <img src={educationGif} alt="Education" className="w-20 h-24" />
           </div>
           <div className="flex-1 flex flex-col justify-between">
-            <p className="text-sm text-gray-300">
+            <p className="text-sm text-gray-300/80">
               <span className="font-semibold text-[#4f95e0]">Batch:</span>{" "}
               <span className="text-gray-100">{edu.batch}</span>
             </p>
 
             <div className="flex flex-row items-center justify-between px-2 mt-2  ">
-              <p className="text-base text-gray-300 text-sm ">
+              <p className="text-base text-gray-300/80 text-sm ">
                 {edu.university}
               </p>
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#ffd151]/20 text-[#ffd151] border border-[#ffd151]/30">

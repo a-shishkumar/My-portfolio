@@ -23,6 +23,11 @@ const Skills = () => {
     { name: "Redux", src: "/assets/tech logos/Redux.png" },
     { name: "Tailwind CSS", src: "/assets/tech logos/Tailwind CSS.png" },
     { name: "Vercel", src: "/assets/tech logos/Vercel.png" },
+    { name: "C", src: "/assets/tech logos/C.png" },
+    { name: "Firebase", src: "/assets/tech logos/Firebase.png" },
+    { name: "Postman", src: "/assets/tech logos/Postman.png" },
+    { name: "Socket.io", src: "/assets/tech logos/Socket.io.png" },
+    { name: "TypeScript", src: "/assets/tech logos/TypeScript.png" },
   ];
 
   // Motion variants for consistency

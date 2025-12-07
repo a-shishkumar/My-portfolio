@@ -222,7 +222,7 @@ const Hero = () => {
             {/* Short description */}
             <motion.p
               variants={fadeUp}
-              className=" mt-3 md:mt-7 text-sm sm:text-base text-[#bdd5ef]  pl-0 font-semibold max-w-4xl leading-relaxed"
+              className=" mt-3 md:mt-7 text-sm sm:text-base text-gray-300/80  pl-0 max-w-4xl leading-relaxed"
             >
               I build accessible, fast and maintainable web apps. I focus on
               responsive interfaces, clean code, and delightful user
@@ -297,11 +297,22 @@ const Hero = () => {
                   Contact Me
                 </motion.a>
 
-                {/* Resume (unchanged frosted style) */}
+                {/* Resume (opens PDF directly on mobile) */}
                 <motion.a
-                  href="/assets/resume.pdf"
+                  href="/assets/projects/AshishResume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => {
+                    // On mobile/small screens, ensure PDF opens directly in native viewer
+                    const isMobile = window.innerWidth < 768;
+                    if (!isMobile) {
+                      // Desktop: allow default behavior (opens in new tab)
+                      return;
+                    }
+                    // Mobile: force native PDF viewer
+                    window.open("/assets/projects/AshishResume.pdf", "_blank");
+                    e.preventDefault();
+                  }}
                   className="relative text-sm md:text-lg inline-flex items-center gap-2 px-4 md:px-6 py-2  md:py-3 rounded-full
                font-semibold text-[#ffd151] border border-[#ffd151]/40
                bg-white/5 backdrop-blur-md shadow-[0_0_12px_rgba(255,209,81,0.15)]"
