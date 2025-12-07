@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { BorderBeam } from "@/components/ui/border-beam";
 import connectImg from "../assets/connectus.png";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const reduceMotion = useReducedMotion();
@@ -80,18 +81,36 @@ const Contact = () => {
     if (Object.keys(newErrors).length) return setErrors(newErrors);
 
     setLoading(true);
-    // simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        _honey: "",
+    // Send email using EmailJS
+    emailjs
+      .send(
+        "service_qek6a9m",
+        "template_mkk357d",
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: "ashish.kr0727@gmail.com",
+        },
+        "6HXVw15OTkJrN39Gw"
+      )
+      .then(() => {
+        setLoading(false);
+        setSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+          _honey: "",
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        setErrors({ submit: "Failed to send message. Please try again." });
+        console.error("EmailJS error:", error);
       });
-    }, 1100);
   };
 
   const contactInfo = [
@@ -245,6 +264,11 @@ const Contact = () => {
                           {success && (
                             <div className="rounded-md bg-green-900/20 border border-green-500/20 text-green-300 p-3 text-center">
                               Message sent successfully — thank you!
+                            </div>
+                          )}
+                          {errors.submit && (
+                            <div className="rounded-md bg-red-900/20 border border-red-500/20 text-red-300 p-3 text-center">
+                              {errors.submit}
                             </div>
                           )}
                         </div>
@@ -422,6 +446,11 @@ const Contact = () => {
                             {success && (
                               <div className="rounded-md bg-green-900/20 border border-green-500/20 text-green-300 p-3 text-center">
                                 Message sent successfully — thank you!
+                              </div>
+                            )}
+                            {errors.submit && (
+                              <div className="rounded-md bg-red-900/20 border border-red-500/20 text-red-300 p-3 text-center">
+                                {errors.submit}
                               </div>
                             )}
                           </div>
